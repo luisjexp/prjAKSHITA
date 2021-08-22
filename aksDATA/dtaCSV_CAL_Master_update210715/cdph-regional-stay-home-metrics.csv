@@ -1,0 +1,351 @@
+date,region,icu_capacity_percent,stay_home_order
+2021-06-08,Bay Area,0.303,no
+2021-06-08,Greater Sacramento,0.256,no
+2021-06-08,Northern California,0.37,no
+2021-06-08,San Joaquin Valley,0.27399999999999997,no
+2021-06-08,Southern California,0.374,no
+2021-06-01,Bay Area,0.331,no
+2021-06-01,Greater Sacramento,0.28,no
+2021-06-01,Northern California,0.266,no
+2021-06-01,San Joaquin Valley,0.297,no
+2021-06-01,Southern California,0.368,no
+2021-05-25,Bay Area,0.34600000000000003,no
+2021-05-25,Greater Sacramento,0.293,no
+2021-05-25,Northern California,0.442,no
+2021-05-25,San Joaquin Valley,0.235,no
+2021-05-25,Southern California,0.34600000000000003,no
+2021-05-18,Bay Area,0.348,no
+2021-05-18,Greater Sacramento,0.314,no
+2021-05-18,Northern California,0.349,no
+2021-05-18,San Joaquin Valley,0.228,no
+2021-05-18,Southern California,0.33899999999999997,no
+2021-05-11,Bay Area,0.349,no
+2021-05-11,Greater Sacramento,0.301,no
+2021-05-11,Northern California,0.295,no
+2021-05-11,San Joaquin Valley,0.19899999999999998,no
+2021-05-11,Southern California,0.36200000000000004,no
+2021-05-04,Bay Area,0.33899999999999997,no
+2021-05-04,Greater Sacramento,0.284,no
+2021-05-04,Northern California,0.349,no
+2021-05-04,San Joaquin Valley,0.23199999999999998,no
+2021-05-04,Southern California,0.344,no
+2021-04-27,Bay Area,0.319,no
+2021-04-27,Greater Sacramento,0.303,no
+2021-04-27,Northern California,0.273,no
+2021-04-27,San Joaquin Valley,0.217,no
+2021-04-27,Southern California,0.33,no
+2021-04-20,Bay Area,0.307,no
+2021-04-20,Greater Sacramento,0.295,no
+2021-04-20,Northern California,0.34600000000000003,no
+2021-04-20,San Joaquin Valley,0.225,no
+2021-04-20,Southern California,0.355,no
+2021-04-13,Bay Area,0.33299999999999996,no
+2021-04-13,Greater Sacramento,0.289,no
+2021-04-13,Northern California,0.349,no
+2021-04-13,San Joaquin Valley,0.215,no
+2021-04-13,Southern California,0.33299999999999996,no
+2021-04-06,Bay Area,0.33399999999999996,no
+2021-04-06,Greater Sacramento,0.278,no
+2021-04-06,Northern California,0.336,no
+2021-04-06,San Joaquin Valley,0.213,no
+2021-04-06,Southern California,0.321,no
+2021-03-23,Bay Area,0.303,no
+2021-03-23,Greater Sacramento,0.271,no
+2021-03-23,Northern California,0.29100000000000004,no
+2021-03-23,San Joaquin Valley,0.201,no
+2021-03-23,Southern California,0.318,no
+2021-03-16,Bay Area,0.275,no
+2021-03-16,Greater Sacramento,0.282,no
+2021-03-16,Northern California,0.258,no
+2021-03-16,San Joaquin Valley,0.21,no
+2021-03-16,Southern California,0.305,no
+2021-03-02,Bay Area,0.278,no
+2021-03-02,Greater Sacramento,0.235,no
+2021-03-02,Northern California,0.364,no
+2021-03-02,San Joaquin Valley,0.183,no
+2021-03-02,Southern California,0.253,no
+2021-02-23,Bay Area,0.254,no
+2021-02-23,Greater Sacramento,0.24,no
+2021-02-23,Northern California,0.336,no
+2021-02-23,San Joaquin Valley,0.168,no
+2021-02-23,Southern California,0.195,no
+2021-02-16,Bay Area,0.24,no
+2021-02-16,Greater Sacramento,0.22399999999999998,no
+2021-02-16,Northern California,0.33299999999999996,no
+2021-02-16,San Joaquin Valley,0.13,no
+2021-02-16,Southern California,0.14800000000000002,no
+2021-02-09,Bay Area,0.21600000000000003,no
+2021-02-09,Greater Sacramento,0.195,no
+2021-02-09,Northern California,0.36,no
+2021-02-09,San Joaquin Valley,0.105,no
+2021-02-09,Southern California,0.106,no
+2021-02-02,Bay Area,0.18100000000000002,no
+2021-02-02,Greater Sacramento,0.184,no
+2021-02-02,Northern California,0.244,no
+2021-02-02,San Joaquin Valley,0.107,no
+2021-02-02,Southern California,0.091,no
+2021-01-24,Bay Area,0.08199999999999999,no
+2021-01-24,Greater Sacramento,0.099,no
+2021-01-24,Northern California,0.479,no
+2021-01-24,San Joaquin Valley,0.0,no
+2021-01-24,Southern California,0.0,no
+2021-01-23,Bay Area,0.23399999999999999,yes
+2021-01-23,Greater Sacramento,0.11900000000000001,no
+2021-01-23,Northern California,0.41200000000000003,no
+2021-01-23,San Joaquin Valley,0.013000000000000001,yes
+2021-01-23,Southern California,0.0,yes
+2021-01-22,Bay Area,0.065,yes
+2021-01-22,Greater Sacramento,0.078,no
+2021-01-22,Northern California,0.326,no
+2021-01-22,San Joaquin Valley,0.0,yes
+2021-01-22,Southern California,0.0,yes
+2021-01-21,Bay Area,0.066,yes
+2021-01-21,Greater Sacramento,0.09,no
+2021-01-21,Northern California,0.285,no
+2021-01-21,San Joaquin Valley,0.0,yes
+2021-01-21,Southern California,0.0,yes
+2021-01-20,Bay Area,0.07,yes
+2021-01-20,Greater Sacramento,0.083,no
+2021-01-20,Northern California,0.281,no
+2021-01-20,San Joaquin Valley,0.0,yes
+2021-01-20,Southern California,0.0,yes
+2021-01-19,Bay Area,0.07400000000000001,yes
+2021-01-19,Greater Sacramento,0.08900000000000001,no
+2021-01-19,Northern California,0.305,no
+2021-01-19,San Joaquin Valley,0.0,yes
+2021-01-19,Southern California,0.0,yes
+2021-01-18,Bay Area,0.034,yes
+2021-01-18,Greater Sacramento,0.062,no
+2021-01-18,Northern California,0.24,no
+2021-01-18,San Joaquin Valley,0.0,yes
+2021-01-18,Southern California,0.0,yes
+2021-01-17,Bay Area,0.034,yes
+2021-01-17,Greater Sacramento,0.062,no
+2021-01-17,Northern California,0.24,no
+2021-01-17,San Joaquin Valley,0.0,yes
+2021-01-17,Southern California,0.0,yes
+2021-01-16,Bay Area,0.034,yes
+2021-01-16,Greater Sacramento,0.062,no
+2021-01-16,Northern California,0.24,no
+2021-01-16,San Joaquin Valley,0.0,yes
+2021-01-16,Southern California,0.0,yes
+2021-01-15,Bay Area,0.034,yes
+2021-01-15,Greater Sacramento,0.062,no
+2021-01-15,Northern California,0.24,no
+2021-01-15,San Joaquin Valley,0.0,yes
+2021-01-15,Southern California,0.0,yes
+2021-01-14,Bay Area,0.047,yes
+2021-01-14,Greater Sacramento,0.094,no
+2021-01-14,Northern California,0.17600000000000002,no
+2021-01-14,San Joaquin Valley,0.0,yes
+2021-01-14,Southern California,0.0,yes
+2021-01-13,Bay Area,0.047,yes
+2021-01-13,Greater Sacramento,0.094,no
+2021-01-13,Northern California,0.17600000000000002,no
+2021-01-13,San Joaquin Valley,0.0,yes
+2021-01-13,Southern California,0.0,yes
+2021-01-12,Bay Area,0.047,yes
+2021-01-12,Greater Sacramento,0.094,no
+2021-01-12,Northern California,0.17600000000000002,no
+2021-01-12,San Joaquin Valley,0.0,yes
+2021-01-12,Southern California,0.0,yes
+2021-01-11,Bay Area,0.007000000000000001,yes
+2021-01-11,Greater Sacramento,0.09699999999999999,yes
+2021-01-11,Northern California,0.35,no
+2021-01-11,San Joaquin Valley,0.0,yes
+2021-01-11,Southern California,0.0,yes
+2021-01-10,Bay Area,0.03,yes
+2021-01-10,Greater Sacramento,0.064,yes
+2021-01-10,Northern California,0.275,no
+2021-01-10,San Joaquin Valley,0.0,yes
+2021-01-10,Southern California,0.0,yes
+2021-01-09,Bay Area,0.03,yes
+2021-01-09,Greater Sacramento,0.064,yes
+2021-01-09,Northern California,0.275,no
+2021-01-09,San Joaquin Valley,0.0,yes
+2021-01-09,Southern California,0.0,yes
+2021-01-08,Bay Area,0.03,yes
+2021-01-08,Greater Sacramento,0.064,yes
+2021-01-08,Northern California,0.275,no
+2021-01-08,San Joaquin Valley,0.0,yes
+2021-01-08,Southern California,0.0,yes
+2021-01-07,Bay Area,0.035,yes
+2021-01-07,Greater Sacramento,0.092,yes
+2021-01-07,Northern California,0.254,no
+2021-01-07,San Joaquin Valley,0.0,yes
+2021-01-07,Southern California,0.0,yes
+2021-01-06,Bay Area,0.07400000000000001,yes
+2021-01-06,Greater Sacramento,0.111,yes
+2021-01-06,Northern California,0.244,no
+2021-01-06,San Joaquin Valley,0.0,yes
+2021-01-06,Southern California,0.0,yes
+2021-01-05,Bay Area,0.059000000000000004,yes
+2021-01-05,Greater Sacramento,0.11699999999999999,yes
+2021-01-05,Northern California,0.298,no
+2021-01-05,San Joaquin Valley,0.0,yes
+2021-01-05,Southern California,0.0,yes
+2021-01-04,Bay Area,0.079,yes
+2021-01-04,Greater Sacramento,0.121,yes
+2021-01-04,Northern California,0.3,no
+2021-01-04,San Joaquin Valley,0.0,yes
+2021-01-04,Southern California,0.0,yes
+2021-01-03,Bay Area,0.084,yes
+2021-01-03,Greater Sacramento,0.10300000000000001,yes
+2021-01-03,Northern California,0.355,no
+2021-01-03,San Joaquin Valley,0.0,yes
+2021-01-03,Southern California,0.0,yes
+2021-01-02,Bay Area,0.051,yes
+2021-01-02,Greater Sacramento,0.069,yes
+2021-01-02,Northern California,0.326,no
+2021-01-02,San Joaquin Valley,0.0,yes
+2021-01-02,Southern California,0.0,yes
+2021-01-01,Bay Area,0.063,yes
+2021-01-01,Greater Sacramento,0.111,yes
+2021-01-01,Northern California,0.33299999999999996,no
+2021-01-01,San Joaquin Valley,0.0,yes
+2021-01-01,Southern California,0.0,yes
+2020-12-31,Bay Area,0.085,yes
+2020-12-31,Greater Sacramento,0.14400000000000002,yes
+2020-12-31,Northern California,0.341,no
+2020-12-31,San Joaquin Valley,0.0,yes
+2020-12-31,Southern California,0.0,yes
+2020-12-30,Bay Area,0.075,yes
+2020-12-30,Greater Sacramento,0.174,yes
+2020-12-30,Northern California,0.315,no
+2020-12-30,San Joaquin Valley,0.0,yes
+2020-12-30,Southern California,0.0,yes
+2020-12-29,Bay Area,0.10400000000000001,yes
+2020-12-29,Greater Sacramento,0.191,yes
+2020-12-29,Northern California,0.27899999999999997,no
+2020-12-29,San Joaquin Valley,0.0,yes
+2020-12-29,Southern California,0.0,yes
+2020-12-28,Bay Area,0.095,yes
+2020-12-28,Greater Sacramento,0.166,yes
+2020-12-28,Northern California,0.293,no
+2020-12-28,San Joaquin Valley,0.0,yes
+2020-12-28,Southern California,0.0,yes
+2020-12-27,Bay Area,0.111,yes
+2020-12-27,Greater Sacramento,0.17800000000000002,yes
+2020-12-27,Northern California,0.28300000000000003,no
+2020-12-27,San Joaquin Valley,0.0,yes
+2020-12-27,Southern California,0.0,yes
+2020-12-26,Bay Area,0.113,yes
+2020-12-26,Greater Sacramento,0.16899999999999998,yes
+2020-12-26,Northern California,0.33899999999999997,no
+2020-12-26,San Joaquin Valley,0.0,yes
+2020-12-26,Southern California,0.0,yes
+2020-12-25,Bay Area,0.098,yes
+2020-12-25,Greater Sacramento,0.16699999999999998,yes
+2020-12-25,Northern California,0.363,no
+2020-12-25,San Joaquin Valley,0.0,yes
+2020-12-25,Southern California,0.0,yes
+2020-12-24,Bay Area,0.092,yes
+2020-12-24,Greater Sacramento,0.153,yes
+2020-12-24,Northern California,0.275,no
+2020-12-24,San Joaquin Valley,0.0,yes
+2020-12-24,Southern California,0.0,yes
+2020-12-23,Bay Area,0.114,yes
+2020-12-23,Greater Sacramento,0.156,yes
+2020-12-23,Northern California,0.28800000000000003,no
+2020-12-23,San Joaquin Valley,0.0,yes
+2020-12-23,Southern California,0.0,yes
+2020-12-22,Bay Area,0.135,yes
+2020-12-22,Greater Sacramento,0.157,yes
+2020-12-22,Northern California,0.295,no
+2020-12-22,San Joaquin Valley,0.0,yes
+2020-12-22,Southern California,0.0,yes
+2020-12-21,Bay Area,0.13699999999999998,yes
+2020-12-21,Greater Sacramento,0.162,yes
+2020-12-21,Northern California,0.287,no
+2020-12-21,San Joaquin Valley,0.0,yes
+2020-12-21,Southern California,0.0,yes
+2020-12-20,Bay Area,0.124,yes
+2020-12-20,Greater Sacramento,0.11599999999999999,yes
+2020-12-20,Northern California,0.242,no
+2020-12-20,San Joaquin Valley,0.0,yes
+2020-12-20,Southern California,0.0,yes
+2020-12-19,Bay Area,0.122,yes
+2020-12-19,Greater Sacramento,0.15,yes
+2020-12-19,Northern California,0.22399999999999998,no
+2020-12-19,San Joaquin Valley,0.0,yes
+2020-12-19,Southern California,0.0,yes
+2020-12-18,Bay Area,0.128,yes
+2020-12-18,Greater Sacramento,0.145,yes
+2020-12-18,Northern California,0.21,no
+2020-12-18,San Joaquin Valley,0.0,yes
+2020-12-18,Southern California,0.0,yes
+2020-12-17,Bay Area,0.131,yes
+2020-12-17,Greater Sacramento,0.113,yes
+2020-12-17,Northern California,0.258,no
+2020-12-17,San Joaquin Valley,0.007000000000000001,yes
+2020-12-17,Southern California,0.0,yes
+2020-12-16,Bay Area,0.129,pending
+2020-12-16,Greater Sacramento,0.141,yes
+2020-12-16,Northern California,0.281,no
+2020-12-16,San Joaquin Valley,0.0,yes
+2020-12-16,Southern California,0.005,yes
+2020-12-15,Bay Area,0.158,no
+2020-12-15,Greater Sacramento,0.149,yes
+2020-12-15,Northern California,0.298,no
+2020-12-15,San Joaquin Valley,0.016,yes
+2020-12-15,Southern California,0.017,yes
+2020-12-14,Bay Area,0.17800000000000002,no
+2020-12-14,Greater Sacramento,0.14800000000000002,yes
+2020-12-14,Northern California,0.29,no
+2020-12-14,San Joaquin Valley,0.0,yes
+2020-12-14,Southern California,0.027000000000000003,yes
+2020-12-13,Bay Area,0.16699999999999998,no
+2020-12-13,Greater Sacramento,0.151,yes
+2020-12-13,Northern California,0.29,no
+2020-12-13,San Joaquin Valley,0.015,yes
+2020-12-13,Southern California,0.042,yes
+2020-12-12,Bay Area,0.17600000000000002,no
+2020-12-12,Greater Sacramento,0.127,yes
+2020-12-12,Northern California,0.27399999999999997,no
+2020-12-12,San Joaquin Valley,0.0,yes
+2020-12-12,Southern California,0.053,yes
+2020-12-11,Bay Area,0.16699999999999998,no
+2020-12-11,Greater Sacramento,0.14800000000000002,yes
+2020-12-11,Northern California,0.266,no
+2020-12-11,San Joaquin Valley,0.045,yes
+2020-12-11,Southern California,0.062,yes
+2020-12-10,Bay Area,0.17800000000000002,no
+2020-12-10,Greater Sacramento,0.133,pending
+2020-12-10,Northern California,0.303,no
+2020-12-10,San Joaquin Valley,0.019,yes
+2020-12-10,Southern California,0.077,yes
+2020-12-09,Bay Area,0.209,no
+2020-12-09,Greater Sacramento,0.14300000000000002,pending
+2020-12-09,Northern California,0.271,no
+2020-12-09,San Joaquin Valley,0.042,yes
+2020-12-09,Southern California,0.09,yes
+2020-12-08,Bay Area,0.245,no
+2020-12-08,Greater Sacramento,0.188,no
+2020-12-08,Northern California,0.25,no
+2020-12-08,San Joaquin Valley,0.055999999999999994,yes
+2020-12-08,Southern California,0.10099999999999999,yes
+2020-12-07,Bay Area,0.257,no
+2020-12-07,Greater Sacramento,0.203,no
+2020-12-07,Northern California,0.282,no
+2020-12-07,San Joaquin Valley,0.063,yes
+2020-12-07,Southern California,0.109,yes
+2020-12-06,Bay Area,0.24100000000000002,no
+2020-12-06,Greater Sacramento,0.182,no
+2020-12-06,Northern California,0.265,no
+2020-12-06,San Joaquin Valley,0.066,pending
+2020-12-06,Southern California,0.10300000000000001,pending
+2020-12-05,Northern California,0.24100000000000002,no
+2020-12-05,Bay Area,0.217,no
+2020-12-05,Greater Sacramento,0.214,no
+2020-12-05,San Joaquin Valley,0.086,pending
+2020-12-05,Southern California,0.125,pending
+2020-12-04,Northern California,0.209,no
+2020-12-04,Bay Area,0.212,no
+2020-12-04,Greater Sacramento,0.214,no
+2020-12-04,San Joaquin Valley,0.141,no
+2020-12-04,Southern California,0.131,no
+2020-12-03,Northern California,0.18600000000000003,no
+2020-12-03,Bay Area,0.253,no
+2020-12-03,Greater Sacramento,0.222,no
+2020-12-03,San Joaquin Valley,0.19699999999999998,no
+2020-12-03,Southern California,0.20600000000000002,no

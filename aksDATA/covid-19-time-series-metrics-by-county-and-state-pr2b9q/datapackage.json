@@ -1,0 +1,231 @@
+{
+  "accrual_periodicity": "daily",
+  "additional_limitations": "Data on cases, deaths, and testing is not reported on weekends or state holidays. This data is reported on the first day following the weekend or holiday. Data on administered vaccines is reported daily. ",
+  "citation": "",
+  "contact_email": "opendata@cdph.ca.gov",
+  "data_collection_tool": "",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "Data is from the California COVID-19 State Dashboard at https://covid19.ca.gov/state-dashboard/\r\n\r\nData on cases, deaths, and testing is not reported on weekends or state holidays. This data is reported on the first day following the weekend or holiday. Data on administered vaccines is reported daily. \r\n\r\n__NOTE:__ The \"Total Tests\" and \"Positive Tests\" columns show totals based on the collection date. There is a lag between when a specimen is collected and when it is reported in this dataset. As a result, the most recent dates on the table will temporarily show NONE in the \"Total Tests\" and \"Positive Tests\" columns. This should not be interpreted as no tests being conducted on these dates. Instead, these values will be updated with the number of tests conducted as data is received.\r\n\r\nWhen comparing to the state dashboard, the dashboard numbers will correspond to the \"Reported\" columns in this table. Also note that the dashboard displays data that is one day prior to today's date.",
+  "geo_coverage": "California",
+  "geographic_granularity": "statewide",
+  "keywords": [
+    "COVID",
+    "COVID-19",
+    "COVID19",
+    "Cases",
+    "Deaths",
+    "Testing",
+    "age",
+    "demographics",
+    "ethnicity",
+    "gender",
+    "race"
+  ],
+  "limitations": "Limitations",
+  "name": "covid-19-time-series-metrics-by-county-and-state",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx",
+  "related_resources": "",
+  "resources": [
+    {
+      "description": "Statewide COVID-19 Cases Deaths Tests",
+      "format": "CSV",
+      "hash": "076b4522a219848cdb8210b7cc5a33bc",
+      "name": "statewide-covid-19-cases-deaths-tests",
+      "path": "statewide-covid-19-cases-deaths-tests.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "date",
+            "type": "string"
+          },
+          {
+            "name": "area",
+            "type": "string"
+          },
+          {
+            "name": "area_type",
+            "type": "string"
+          },
+          {
+            "name": "population",
+            "type": "string"
+          },
+          {
+            "name": "cases",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_cases",
+            "type": "string"
+          },
+          {
+            "name": "deaths",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_deaths",
+            "type": "string"
+          },
+          {
+            "name": "total_tests",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_total_tests",
+            "type": "string"
+          },
+          {
+            "name": "positive_tests",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_positive_tests",
+            "type": "string"
+          },
+          {
+            "name": "reported_cases",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_reported_cases",
+            "type": "string"
+          },
+          {
+            "name": "reported_deaths",
+            "type": "string"
+          },
+          {
+            "name": "cumulative_reported_deaths",
+            "type": "string"
+          },
+          {
+            "name": "reported_tests",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f333528b-4d38-4814-bebb-12db1f10f535/resource/046cdd2b-31e5-4d34-9ed3-b48cdbc4be7a/download/covid19cases_test.csv",
+          "title": "Statewide COVID-19 Cases Deaths Tests"
+        }
+      ],
+      "title": "Statewide COVID-19 Cases Deaths Tests"
+    },
+    {
+      "description": "State COVID-19 Cases Deaths Demographics",
+      "format": "CSV",
+      "hash": "326489ab4f758c4d17652a39498285e6",
+      "name": "statewide-covid-19-cases-deaths-demographics",
+      "path": "statewide-covid-19-cases-deaths-demographics.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "demographic_category",
+            "type": "string"
+          },
+          {
+            "name": "demographic_value",
+            "type": "string"
+          },
+          {
+            "name": "total_cases",
+            "type": "string"
+          },
+          {
+            "name": "percent_cases",
+            "type": "string"
+          },
+          {
+            "name": "deaths",
+            "type": "string"
+          },
+          {
+            "name": "percent_deaths",
+            "type": "string"
+          },
+          {
+            "name": "percent_of_ca_population",
+            "type": "string"
+          },
+          {
+            "name": "report_date",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f333528b-4d38-4814-bebb-12db1f10f535/resource/e2c6a86b-d269-4ce1-b484-570353265183/download/covid19casesdemographics.csv",
+          "title": "Statewide COVID-19 Cases Deaths Demographics"
+        }
+      ],
+      "title": "Statewide COVID-19 Cases Deaths Demographics"
+    },
+    {
+      "format": "XLSX",
+      "name": "covid-19-cases-deaths-tests-data-dictionary",
+      "path": "covid-19-cases-deaths-tests-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "COLUMN NAME",
+            "type": "string"
+          },
+          {
+            "name": "FORMAT",
+            "type": "string"
+          },
+          {
+            "name": "DEFINITION",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f333528b-4d38-4814-bebb-12db1f10f535/resource/e6667716-5ec6-499f-aeab-0e085020135a/download/covid-19_cases_deaths_tests_data_dictionary.xlsx",
+          "title": "COVID-19 Cases Deaths Tests Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Cases Deaths Tests Data Dictionary"
+    },
+    {
+      "format": "XLSX",
+      "name": "covid-19-cases-deaths-demographics-data-dictionary",
+      "path": "covid-19-cases-deaths-demographics-data-dictionary.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "COLUMN NAME",
+            "type": "string"
+          },
+          {
+            "name": "FORMAT",
+            "type": "string"
+          },
+          {
+            "name": "DEFINITION",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/f333528b-4d38-4814-bebb-12db1f10f535/resource/fb9c48f5-abe5-404a-852c-dec37b0eba70/download/covid-19_cases_deaths_demographics_data_dictionary.xlsx",
+          "title": "COVID-19 Cases Deaths Demographics Data Dictionary"
+        }
+      ],
+      "title": "COVID-19 Cases Deaths Demographics Data Dictionary"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "COVID-19 Response Data, Informatics, Surveillance, Clinical and Outbreaks (DISCO) Team"
+    }
+  ],
+  "temporal_coverage": "2020-present",
+  "title": "COVID-19 Time-Series Metrics by County and State"
+}
