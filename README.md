@@ -1,54 +1,22 @@
-# PROJECT AKSHITA
-A course and project on time series analysis, designed for my wonderful student, akshita.
+# AKSHITA'S PROJECT
 
+This is a course and research project focusing on the analysis of time series data. The course is tailored for my student Akshita who is taking part of **<u>Lumeire Educations</u>** Summer 2021 cohort. 
 
+<u>Quick Links</u>
 
-# Data
-## Types of data files
-### raw data files
-general format
+- Current version of the syllabus and course topics , click [here](SCHEDULE.md) 
+- Current draft of Akshita's manuscript, click  [here](MANUSCRIPT.md) 
+- The data analysis for the project, written in Python, Matlab and R, can be found in [this folder](aksANALYZE)   
+- See [this link](https://www.lumiere-education.com/)  for more info on Lumeire Education
 
-Types
-- cal gov data files
-- git county tier data file
-- global npi data file
-- santa clara data files
-- san francisco data files
+# Course Syllabus 
 
+See current version of the syllabus and course topics, click [here](SCHEDULE.md) 
 
-- chicago
-    - case data (https://data.cityofchicago.org/Health-Human-Services/Daily-COVID-19-Cases-by-Race-Ethnicity/4jg2-s2f8)
+# Research Project
 
+For Akshita's current draft of her manuscript, click  [here](MANUSCRIPT.md) 
 
+Research Question
 
-
-
-
-
-### Time table files
-time table files, no transmissability variable
-- format
-- description: these are fully (nearly) processed data files. there is one variable that they are missing, and thats the transmissablity (R) variable 
-
-time table files, with transmissability variabl
-- format
-- description
-
-
-
-
-
-Data file name formats
-the names of the data files have a specific format
-
-
-For raw csv files.
-- suffix 
-dtaCSV_00format_dtaCSV_LEVEL_V1_vs_V2_datesource
-
-
-
-# Analysis
-[Analysis Inspiration B](https://github.com/mis-research/covid19_npi_effectiveness)
-
-
+- How are different ethnic groups impacted by covid-related non-pharmecutical interventions?

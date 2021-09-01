@@ -46,11 +46,11 @@ methods (Static)
             switch upper(race_str)
                 case 'WHITE'
                     race_tag = C.tag_white;
-                case {'BLACK', 'AFRICAN AMERICAN'};...
+                case {'BLACK', 'AFRICAN AMERICAN','BLACK/AFRICAN AMERICAN'};...
                         race_tag = C.tag_black;
                 case ('ASIAN');...
                         race_tag = C.tag_asian;
-                case {'LATINO', 'HISPANIC/LATINO'};...
+                case {'LATINO', 'HISPANIC/LATINO', 'LATINO/HISPANIC'};...
                         race_tag = C.tag_latino;
                 case upper('american indian or alaska native');...
                         race_tag = C.tag_native;
@@ -181,7 +181,7 @@ methods (Static)
             tt.Properties.DimensionNames{1} = 'Time';
 
             % retime: to fill in gaps left by pulling race data
-            tt           = retime(sortrows(tt), 'daily', 'previous');
+
 
         % PULL RELEVENT VARIABLES AND RENAME THEM 
             tt = tt(:, csvimporter.git_varnames_raw_to_extract);
@@ -223,7 +223,8 @@ methods (Static)
         % PULL NPI REALTED POLICIES ONLY (NO VACCINATIONS)
         % PULL STATE LEVEL POLICIES ONLY (NO COUNTY RESTRICTIONS)
         npi_state_Idx   = contains( upper(tbl.('policy_regional_level')), 'STATE');
-        tbl             = tbl(npi_state_Idx, :);      
+        tbl             = tbl(npi_state_Idx, :);    
+        tbl             = tbl(tbl.npi_on == 1,:);
 
 
         tt              = table2timetable(tbl, 'RowTimes', 'Time');         
@@ -274,7 +275,6 @@ methods (Static)
         fname_cases   = [C.data_file_path, 'dtaCSV_global_npi.csv'];
         opts_cases    = detectImportOptions(fname_cases);
         tbl           = readtable(fname_cases, opts_cases);
-
         tbl           = tbl(contains(tbl.('Country'), 'United States of America'),:);  % get statewide data only       
 
         if strcmpi(options.region_level, 'STATE')
@@ -321,13 +321,14 @@ methods (Static)
 end
 
 %% - - - COUNTY TIER STATUS 
-properties
+properties (Constant)
     countytier_varnames_raw_to_extract = {'tier'} 
     countytier_varnames_new_names      = {'tier_status'};
 end
-methods
+methods (Static)
     % - - - - - -  import country tier stats
     function tt_tier_retime         = impcsv_county_unique_tier(county)
+        
         C                           =  csvimporter;
         
         fname_tier_allCounties      =  [C.data_file_path, 'dtaCSV_git_county_tier.csv'];
@@ -347,8 +348,13 @@ methods
         tt_tier_sort = sortrows(tt_tier);
         tt_tier_retime = retime(tt_tier_sort, 'daily', 'previous');
 
+        tier_status_normal_dates = [tt_tier_retime.Time(1)-day(1);...
+            tt_tier_retime.Time(end)+day(1)];
+        tier_5 = timetable([5;5], 'RowTimes', tier_status_normal_dates, 'VariableNames', {'tier_status'});
+        tt_tier_retime = sortrows([tt_tier_retime; tier_5]);
+        
         tt_tier_retime.tier_decrease = [0; diff( tt_tier_retime.('tier_status') ) <0];
-        tt_tier_retime.tier_increase = [1; diff( tt_tier_retime.('tier_status') ) >0];      
+        tt_tier_retime.tier_increase = [0; diff( tt_tier_retime.('tier_status') ) >0];      
 
 
     end
@@ -395,19 +401,27 @@ methods (Static)
         
         tt_added_var =   readtable(fname_with_R_tt, varOpts);
 
-
         
     end
+    
+    
+    %% - - - clip days with no case data
+    function tt = preproc_tt_clip_tt_missing_cases(tt)
+        tt
+        
+        
+    end
+    
 end
 
 
 %% GENERATE TIME TABLES
 methods (Static)
-    %% - - - STATEWIDE TABLE: statewide covid cases and npis for all races
+    %% - - - STATEWIDE MASTER TABLE: statewide covid cases and npis for all races
     function tt_statwide = gentt_STATEWIDE_master()
         C = csvimporter;
 
-        tt_covidcase_allraces   = C.gentt_statewide_covidcase_for_allraces();
+        tt_covidcase_allraces   = C.gentt_STATEWIDE_covidcase_for_allraces();
         tt_NPIs                 =  C.gentt_statewide_NPIs;
 
         tt_statwide = outerjoin(tt_covidcase_allraces,tt_NPIs,...
@@ -423,13 +437,18 @@ methods (Static)
         
         
         tt_statwide = C.preproc_addvar_epiestim('statewide') ;
+        tt_statwide = table2timetable(tt_statwide, 'RowTimes', 'Time');
+        
+        if ~isregular(tt_statwide)
+            error('luis')
+        end
         fprintf('\n\n FINISHED ADDING EPISTEM TO STATEWIDETIME TABLE, NEW FILE ADDED\n\n')        
         
          
     end
 
     % - - - - - - - get statewide covid cases (no npis) for ALL races
-    function tt = gentt_statewide_covidcase_for_allraces()
+    function tt = gentt_STATEWIDE_covidcase_for_allraces()
         C = csvimporter;
         tt = timetable;
 
@@ -476,8 +495,9 @@ methods (Static)
     end
 
     
-    %% - - - SANTACLARA TABLE: stclara covid cases, tiers, and cal npis for all races
-    function TT_case_tier_npi = gentt_SANTACLARA_master() 
+    %% - - - SANTACLARA MASTER TABLE: stclara covid cases, tiers, and cal npis for all races
+    %% - - - - - - NOTE: table does not include epiestim variable
+    function TT_case_and_tier = gentt_SANTACLARA_master() 
         % Get Santa Clara Data
         C = csvimporter;
         fname_tt_without_R  =  [C.data_file_path, 'dtaCSV_county_santaclara_case.csv'];
@@ -488,37 +508,82 @@ methods (Static)
 
 
         race_val_list = upper(C.raceoptions_all);
-
-        tt = sortrows(timetable('RowTimes', tbl.Time));
+        tt = timetable;
          for i = 1:numel(race_val_list)
             race_val = race_val_list{i};
 
             switch race_val
+                case 'WHITE'
+                    tbl.population = repmat(586461, height(tbl),1 );
+                    race_tag = 'wht';
+                    
+                    
                 case 'BLACK'
                     race_val = 'AFRICAN AMERICAN';
+                    tbl.population = repmat(46306, height(tbl),1);
+                    race_tag = 'blk';
+                    
+
                 case 'LATINO'
                     race_val = 'HISPANIC/LATINO'; 
-                case upper('native hawaiian AND other pacific islander'),...
-                        race_val = upper('native hawaiian OR other pacific islander');              
-
+                    tbl.population = repmat(482298, height(tbl),1);
+                    race_tag = 'ltn';
+                    
+                        
+                case 'ASIAN'
+                    tbl.population = repmat(724178, height(tbl),1);
+                    race_tag = 'asn';      
+                    
+                    
+                case 'AMERICAN INDIAN OR ALASKA NATIVE'
+                    tbl.population = repmat(3213, height(tbl),1);
+                    race_tag = 'ntv';
+                    
+                    
+                case 'MULTI-RACE'
+                    tbl.population = repmat(71933, height(tbl),1);
+                    race_tag = 'mlt';                    
+                    
+                    
+                case upper('native hawaiian AND other pacific islander')
+                    race_val = upper('native hawaiian OR other pacific islander');                      
+                    tbl.population = repmat(6752, height(tbl),1);
+                    race_tag = 'pcf';
+                    
             end
+              
 
+   
+            % get raw variables
+            raceIdx             = contains(upper(tbl.('race_ethnicity')), race_val);  
+            tbl_single_race     = tbl(raceIdx,{'Time', 'new_cases', 'population'});    
+            
+            % Genearate new variables
+            tbl_single_race.new_cases = movmean(tbl_single_race.new_cases, 7);           
+            tbl_single_race.case_pctof_racepop = 100.*(tbl_single_race.new_cases./tbl_single_race.population);            
+            
+            % convert to tt and rename vars
+            tt_single_race      =  table2timetable(tbl_single_race, 'RowTimes', 'Time');
+            tt_single_race = renamevars(tt_single_race, 'new_cases', 'cases');
+            tt_single_race = renamevars(tt_single_race, 'case_pctof_racepop', 'case_pctof_racepop');
+            
+            
+            % Add race tags to vars
+            vars_names_tagged   = C.tagvarnames(tt_single_race, race_tag);
+            tt_single_race.Properties.VariableNames = vars_names_tagged;
 
-            raceIdx             = contains(upper(tbl.('race_ethnicity')), race_val);   
-            tbl_race_unique     = tbl(raceIdx,{'Time', 'new_cases'});    
-            tt_race_unique      = table2timetable(tbl_race_unique);
-            race_tag            = C.convert_raceval_2_racetag(race_val);
-            vars_names_tagged   = C.tagvarnames(tt_race_unique, race_tag);
-            tt_race_unique.Properties.VariableNames = vars_names_tagged;
-
-
-            tt = synchronize(tt, tt_race_unique);
+            % Append
+            tt_single_race      = sortrows(tt_single_race);
+            tt = synchronize(tt, tt_single_race);            
+            
          end
 
-
-         TT_case_stclara = retime(tt, 'daily', 'previous');
+        
+         
+         % ORIGINAL
+         TT_case = retime(tt, 'daily', 'previous');
          TT_tier_stclara = C.impcsv_county_unique_tier('santa clara');
-         TT_case_and_tier = synchronize(TT_case_stclara,TT_tier_stclara);
+         TT_case_and_tier = synchronize(TT_case,TT_tier_stclara);
 
          % NOTE: joining table leaves dates where there are no tiers. these
          % dates are assumed to have 'no tiers', which are defined as tier 5, the
@@ -527,8 +592,115 @@ methods (Static)
          TT_case_and_tier.tier_decrease = [0; diff( TT_case_and_tier.('tier_status') ) <0];
          TT_case_and_tier.tier_increase = [0; diff( TT_case_and_tier.('tier_status') ) >0];      
 
-         TT_npi_statewide = C.impcsv_cal_npi_haug() ;   
-         TT_case_tier_npi = synchronize(TT_case_and_tier,TT_npi_statewide);
+
+
+         if ~isregular(TT_case_and_tier)
+             error('LUIS')
+         end
+
+
+         % NOTE: SAVE AS CSV, This tt table does not contain R vairbale. 
+         fname_tt_without_R   = sprintf(C.fname_tt_santaclara_format, C.fname_tag_epistem_notadded );            
+         writetimetable(TT_case_and_tier, fname_tt_without_R);
+
+
+
+    end
+    
+    %% - - - LOS ANGELES MASTER TABLE: covid cases, tiers, and cal npis for all races
+    %% - - - - - - NOTE: table does not include epiestim variable
+    function TT_case_tier_npi = gentt_LOSANGELES_master() 
+        C = csvimporter;
+        fname_tt_without_R  =  [C.data_file_path, 'dtaCSV_county_losangeles_case.csv'];
+        tbl                 = readtable(fname_tt_without_R, detectImportOptions(fname_tt_without_R));
+
+
+        race_val_list = upper(C.raceoptions_all);
+        tt = timetable;
+         for i = 1:numel(race_val_list)
+            race_val = race_val_list{i};
+
+            switch race_val
+                case 'WHITE'
+                    race_tag = 'wht';
+                case 'BLACK'
+                    race_val = upper('Black/African American');
+                    race_tag = 'blk';
+                    
+                case 'LATINO'
+                    race_val = upper('Latino/Hispanic');
+                    race_tag = 'ltn';
+                    
+                case 'ASIAN'
+                    race_tag = 'asn';      
+                    
+               case 'AMERICAN INDIAN OR ALASKA NATIVE'
+                    race_tag = 'ntv';
+                    
+                case 'MULTI-RACE'
+                    race_tag = 'mlt';                    
+                    
+                case   {'NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER'}
+                    race_val = 'NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER';
+                    race_tag = 'pcf';
+                    
+            end
+
+
+
+            
+           
+            raceIdx             = contains(upper(tbl.reth), race_val);  
+            
+            % Get raw variables
+            tbl_single_race     = tbl(raceIdx,{'ep_date',...
+                'adj_case_14day_rate',... 
+                'adj_death_14day_rate',...
+                'cases_14day',...
+                'death_14day',...
+                'population'}); 
+            
+            % Genearate new variables
+            tbl_single_race.case_pctof_racepop = 100.*(tbl_single_race.cases_14day./tbl_single_race.population);            
+            tbl_single_race.death_pctof_racepop = 100.*(tbl_single_race.death_14day./tbl_single_race.population);
+            
+            % convert to tt and rename vars
+            tt_single_race      =  table2timetable(tbl_single_race, 'RowTimes', 'ep_date');
+            tt_single_race.Properties.DimensionNames{1} = 'Time';
+            tt_single_race = renamevars(tt_single_race, 'adj_case_14day_rate', 'case_rate_adj');
+            tt_single_race = renamevars(tt_single_race, 'adj_death_14day_rate', 'death_rate_adj');
+            tt_single_race = renamevars(tt_single_race, 'cases_14day', 'cases');
+            tt_single_race = renamevars(tt_single_race, 'death_14day', 'deaths');
+            tt_single_race = renamevars(tt_single_race, 'case_pctof_racepop', 'case_pctof_racepop');
+            tt_single_race = renamevars(tt_single_race, 'death_pctof_racepop', 'death_pctof_racepop');
+            
+            % Add race tags to vars
+            vars_names_tagged   = C.tagvarnames(tt_single_race, race_tag);
+            tt_single_race.Properties.VariableNames = vars_names_tagged;
+
+            % Append
+            tt_single_race      = sortrows(tt_single_race);
+            tt = synchronize(tt, tt_single_race);
+         end
+         
+        
+         if ~isregular(tt)
+             error('luis')
+         end
+         
+         tt_case = tt;
+         tt_tier = C.impcsv_county_unique_tier('los angeles');
+         tt_case_and_tier = synchronize(tt_case,tt_tier);
+
+         % NOTE: joining table leaves dates where there are no tiers. these
+         % dates are assumed to have 'no tiers', which are defined as tier 5, the
+         % a tier above the highest tier (4)
+         tt_case_and_tier.tier_status ( isnan(tt_case_and_tier.tier_status) ) = 5;
+         tt_case_and_tier.tier_decrease = [0; diff( tt_case_and_tier.('tier_status') ) <0];
+         tt_case_and_tier.tier_increase = [0; diff( tt_case_and_tier.('tier_status') ) >0];      
+
+         tt_npi_statewide = C.impcsv_cal_npi_haug() ;   
+         TT_case_tier_npi = synchronize(tt_case_and_tier,tt_npi_statewide);
 
 
          if ~isregular(TT_case_tier_npi)
@@ -537,45 +709,129 @@ methods (Static)
 
 
          % NOTE: SAVE AS CSV, This tt table does not contain R vairbale. 
-         fname_tt_without_R   = sprintf(C.fname_tt_santaclara_format, C.fname_tag_epistem_notadded );            
-         writetimetable(TT_case_tier_npi, fname_tt_without_R);
+%          fname_tt_without_R   = sprintf(C.fname_tt_losangeles_format, C.fname_tag_epistem_notadded );            
+%          writetimetable(TT_case_tier_npi, fname_tt_without_R);
 
-         % NOTE: will delete the TT with an R variable, to prevent accidental
-         % usage of outdated time table. This will force you to generate the TT
-         % using the newest version of the raw data
-    %      fname_tt_with_R_outdated   = sprintf(C.fname_tt_santaclara_format, C.fname_tag_epistem_added );            
-    %      delete(fname_tt_with_R_outdated)
+
 
 
     end
 
+    %% - - - SAN FRANCISCO MASTER TABLE: covid cases, tiers, and cal npis for all races
+    %% - - - - - - NOTE: table does not include epiestim variable
+    function TT_death_and_tier = gentt_SANFRANCISCO_master() 
+        % Get Santa Clara Data
+        C = csvimporter;
+        fname_tt_without_R  =  [C.data_file_path, 'dtaCSV_county_sanfrancisco_case.csv'];
+        imp_opts = detectImportOptions(fname_tt_without_R);
+        
+        tbl     = readtable(fname_tt_without_R, imp_opts);
+        tbl.DataAsOf
+        
+        race_val_list = upper(C.raceoptions_all);
+        
+        tt = timetable;
+         for i = 1:numel(race_val_list)
+            race_val = race_val_list{i};
 
-    %% - - - SAN FRANCISCO TABLE: (BUILDING)
-    function tf = impcsv_county_sanfran_races_all() 
-        % GET SAN FRAN DATA
-        fname_cases   = 'dtaCSV_sanfran_case_vs_race.csv';
-        opts_cases    = detectImportOptions(fname_cases);
-        tb_cases      = readtable(fname_cases, opts_cases);
-        tb_cases.specimen_collection_date = datetime(tb_cases.specimen_collection_date, 'Format', 'yyyy-MM-dd');
+            switch race_val
+                case 'WHITE'
+                    tbl.population = repmat(354423, height(tbl),1 );
+                    race_tag = 'wht';
 
-        % PULL DESIRED RACE DATA
-        raceIdx = contains(upper(tb_cases.('race_ethnicity')), upper(race));        
-        tb_cases    = tb_cases(raceIdx,{'specimen_collection_date', 'new_confirmed_cases'});            
-        tt_race     = table2timetable(tb_cases);   
+                case 'BLACK'
+                    race_val = upper('Black or African American');
+                    tbl.population = repmat(43782, height(tbl),1);
+                    race_tag = 'blk';
 
-        % RENAME ROWS VAR TO 'TIME'
-        tt_race.Properties.DimensionNames{1} = 'Time'; 
+                case 'LATINO'
+                    race_val = upper('Hispanic or Latino/a, all races'); 
+                    tbl.population = repmat(133314, height(tbl),1);
+                    race_tag = 'ltn';
+                        
+                case 'ASIAN'
+                    tbl.population = repmat(298108, height(tbl),1);
+                    race_tag = 'asn';
+                    
+                    
+                case 'AMERICAN INDIAN OR ALASKA NATIVE'
+                    tbl.population = repmat(1634, height(tbl),1);
+                    race_tag = 'ntv';
+                    continue;
+                    
+                case 'MULTI-RACE'
+                    race_val = upper('Multi-racial'); 
+                    
+                    tbl.population = repmat(11573, height(tbl),1);
+                    race_tag = 'mlt';
+                    continue;
+                case upper('native hawaiian AND other pacific islander')
+                    race_val = upper('Native Hawaiian or Other Pacific Islander');                      
+                    tbl.population = repmat(2934, height(tbl),1);
+                    race_tag = 'pcf';
+                    continue; % skip, data is extremely sparse and messy
+                    
+            end
 
-        % IMPORT TIER DATA
-        tt_tier = csvimporter.county_tier('san francisco');
+   
+            % get raw variables
+            raceIdx             = contains(upper(tbl.('CharacteristicGroup')), race_val) ;  
+            tbl_single_race     = tbl(raceIdx,{'DateOfDeath', 'CumulativeDeaths', 'population'});    
+            
+            % Genearate new variables
+            tbl_single_race.deaths = [nan; diff(tbl_single_race.CumulativeDeaths)];                       
+            tbl_single_race.deaths = movmean(tbl_single_race.deaths, 7);           
+            tbl_single_race.death_pctof_racepop = 100.*(tbl_single_race.deaths./tbl_single_race.population);            
+            
+            % convert to tt and rename vars
+            tt_single_race      =  table2timetable(tbl_single_race, 'RowTimes', 'DateOfDeath');
+            tt_single_race = renamevars(tt_single_race, 'deaths', 'deaths');
+            tt_single_race = renamevars(tt_single_race, 'death_pctof_racepop', 'death_pctof_racepop');
+            
+            
+            % Add race tags to vars
+            vars_names_tagged   = C.tagvarnames(tt_single_race, race_tag);
+            tt_single_race.Properties.VariableNames = vars_names_tagged;
 
-        % JOIN TABLES
-        tf = outerjoin(tt_tier,tt_race, 'MergeKeys', true);
-        tf.tier = fillmissing(tf.tier,'previous');
+            % Append
+            tt_single_race      = sortrows(tt_single_race);
+            tt = synchronize(tt, tt_single_race);            
+            
+         end
+
+        
+         
+         % ORIGINAL
+         TT_deaths = retime(tt, 'daily', 'previous');
+         TT_tier = C.impcsv_county_unique_tier('san francisco');
+         TT_death_and_tier = synchronize(TT_deaths,TT_tier);
+
+         % NOTE: joining table leaves dates where there are no tiers. these
+         % dates are assumed to have 'no tiers', which are defined as tier 5, the
+         % a tier above the highest tier (4)
+         TT_death_and_tier.tier_status ( isnan(TT_death_and_tier.tier_status) ) = 5;
+         TT_death_and_tier.tier_decrease = [0; diff( TT_death_and_tier.('tier_status') ) <0];
+         TT_death_and_tier.tier_increase = [0; diff( TT_death_and_tier.('tier_status') ) >0];      
+
+
+
+         if ~isregular(TT_death_and_tier)
+             error('LUIS')
+         end
+
+
+         % NOTE: SAVE AS CSV, This tt table does not contain R vairbale. 
+         fname_tt_without_R   = sprintf(C.fname_tt_sanfrancisco_format, C.fname_tag_epistem_notadded );            
+         writetimetable(TT_death_and_tier, fname_tt_without_R);
+
+
+
 
     end
+    
 
-
+    
+    
 %% - - - SOME FXNS FOR GEN TABLES
     %% - - - - - - join 2 tables
     function TT_merged_retimed = jointimetables(tt1, tt2, tt1_retime_method, tt2_retime_method)
@@ -596,42 +852,40 @@ methods (Static)
 
 
 
-
-
-
-%% ANALYSYS 
-function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
+%% ANALYSIS 
+    function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
     %% - - - EFFECT OF NPIs ON change in outcomes
     arguments
         tt_all_race
-        y_var_name
-        event_times_list
-        options.event_description cell = repmat({'event'}, numel(event_times_list),1)
+        y_var_name = 'case_daily'
+        event_times_list = []
+        options.event_description = {}
     end
     %% - - - - - - Initialize
     C = csvimporter;
 
-    time_stamps = tt_all_race.Time;
-    time_stamps_numberof = numel(time_stamps);
-    var_names = tt_all_race.Properties.VariableNames(contains(tt_all_race.Properties.VariableNames ,y_var_name));
-    var_names_ordered = sort(var_names);
-    var_names_numof = numel(var_names_ordered);
+    time_stamps             = tt_all_race.Time;
+    time_stamps_numberof    = numel(time_stamps);
+    var_names               = tt_all_race.Properties.VariableNames(contains(tt_all_race.Properties.VariableNames ,y_var_name));
+    var_names_sorted        = sort(var_names);
+    var_names_numof         = numel(var_names_sorted);
     
-    tt_R = table2timetable(tt_all_race(:, var_names_ordered ), 'RowTimes', time_stamps);
+    tt_R = tt_all_race(:, var_names_sorted);
 
     
-    npi_events_number = numel(event_times_list);
+    npi_events_number_of = numel(event_times_list);
     
     figure(1)
     clf;    
-
     days_pre_event_num      = 7;
     day_of_event_num        = days_pre_event_num;
-    days_post_event_num     = 7;
+    days_post_event_num     = 25;
     days_prior_event  = days(days_pre_event_num);
     days_post_event   = days(days_post_event_num);
     
     
+    
+    %% - - - - - - - ORIGINAL 
     dim_race = 2;
     dim_event = 3;
     dim_rand_iteration = 4;    
@@ -640,19 +894,19 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
     dR_random = [];
     V_random = [];
 
-    time_stamps_clipped = time_stamps(days_pre_event_num+1:time_stamps_numberof-days_post_event_num-1);
-    time_stamps_clipped_numof = numel(time_stamps_clipped);
-    num_iterations = 5;
+    time_stamps_clipped         = time_stamps(days_pre_event_num+1:time_stamps_numberof-days_post_event_num-1);
+    time_stamps_clipped_numof   = numel(time_stamps_clipped);
+    num_iterations              = 5;
 
         for i = 1:num_iterations
-            for k = 1:npi_events_number
+            for k = 1:npi_events_number_of
                 npi_event_date_random = time_stamps_clipped(randi(time_stamps_clipped_numof));
                 tau_window_random = npi_event_date_random - days_prior_event:...
                     days(1):...
                     npi_event_date_random + days_post_event;
 
                 V_random =  tt_R(tau_window_random,:).Variables ;
-    %             dR_random(:,:,k, i) = V_random(day_of_event_num,:) - V_random;
+%                  dR_random(:,:,k, i) = V_random(day_of_event_num,:) - V_random;
                 dR_random(:,:,k, i) = V_random;
 
 
@@ -688,7 +942,7 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
     R = []
     
     
-    for k = 1:npi_events_number
+    for k = 1:npi_events_number_of
         npi_event_date = event_times_list(k);
         tau_window = npi_event_date - days_prior_event:...
             days(1):...
@@ -707,7 +961,6 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
 
 
     dR_events_pancake_race = squeeze(nanmean(dR, dim_race));
-    
     dR_races_pankake_events = squeeze(nanmean(dR, dim_event));
     dR_races_pankake_events_std = squeeze(nanstd(dR, 0, dim_event));
     
@@ -735,16 +988,11 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
 % % % % % % % % % % % % % % % % %         
     
     x = [-days_pre_event_num:days_post_event_num]';
-    ymin = nanmin([dR(:) ;dR_random(:)]);
-    ymax = nanmax([dR(:) ;dR_random(:)]);
-    ymin = nanmin(nanmean([dR(:) ;dR_random(:)]))
-    ymax = nanmax(nanmean([dR(:) ;dR_random(:)])    )
-%     ymin = -1000
-%     ymax = 1000
+
 %     
     
-    % Plot the temporal kernel of each event. Ignore races.
-    for i = 1:npi_events_number
+    % Plot the temporal response of Y to each event X. Ignore races.
+    for i = 1:npi_events_number_of
         nexttile
         y_rand_mu       = dR_rand_events_pancake_race_mu(:,i);
         y_rand_std      = dR_rand_events_pancake_race_std(:,i);
@@ -755,7 +1003,11 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
         set(gca, 'XLim', [min(x), max(x)]) 
         
         title_string = sprintf('%s\nt=[%s]', y_var_name, event_times_list(i));
-        title(title_string, 'Interpreter', 'none')
+        if ~isempty(options.event_description)
+            event_string = options.event_description{i};
+            title_string = sprintf('%s\n(%s)', title_string, event_string);
+        end
+        title(title_string, 'Interpreter', 'none', 'FontSize', 8)
         drawnow
     end
     
@@ -764,22 +1016,22 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
     clf
     nexttile
     for i = 1:var_names_numof
-        nexttile
+        
         y_rand_mu   = dR_random_race_pancake_events_mu(:,i);
         y_rand_std  = dR_random_race_pancake_events_std(:,i);
         y_data      = dR_races_pankake_events(:,i);
         y_std       = dR_races_pankake_events_std(:,i);
-        errorbar(x, y_data, y_std)
-
-%         plt_race_or_event(x, y_rand_mu, y_rand_std,y_data) 
-%         set(gca, 'YLim', [ymin, ymax])
+%         errorbar(x, y_data, y_std);
+        plot(x, y_data)
         
-        title(sprintf('dR_RACE_%s', var_names_ordered{i}), 'Interpreter', 'none')   
+        hold on;
+
         xlabel('Days before/after npi')
-        ylabel(sprintf('Change in %s', y_var_name), 'Interpreter', 'none')
+        ylabel(sprintf('%s', y_var_name), 'Interpreter', 'none')
         
         
     end   
+    legend(var_names_sorted, 'Interpreter', 'none')
        nexttile
 
 %         y_rand_mu   = dR_random_pancake_race_and_events_mu;
@@ -789,7 +1041,9 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
 
         y_data      = dR_pancake_race_and_events;
         y_std       = dR_pancake_race_and_events_std;
-        errorbar(x, y_data, y_std)
+%         errorbar(x, y_data, y_std)
+        plot(x, y_data)
+        
 
 %         set(gca, 'YLim', [ymin, ymax])
         
@@ -800,105 +1054,9 @@ function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, option
     
     
    
-    function plt_race_or_event(x,y_rand_mu,y_rand_std, y_data)
-        errorbar(x,y_rand_mu,y_rand_std); hold on;
-        plot(x, y_data, 'LineWidth', 6)
-        set(gca, 'XLim', [min(x), max(x)])
-    end
     
     
 end
-
-
-%% - - - LASSO REGRESSION BY HAUG  
-function [tt_lagged,var_names_lagged] =  ANZ_effect_of_npi_lasso(tt, var_name_2_shift, shift_amount_list)
-    arguments
-        tt
-        var_name_2_shift
-        shift_amount_list = 1:28;
-    end
-    VG = ttvargenerator;
-    
-    [tt_lagged, var_names_lagged]  = VG.timeshift(tt,...
-        var_name_2_shift,...
-        shift_amount_list);       
-    
-
-        [lamdas, L] = lasso(X_lagged, Y ,...
-            'CV', 10,...
-            'PredictorNames',...
-            IVs_to_train);
-
-        % % % % % % % % % % % % % % % % 
-        % RUN REFINED Linear Models
-        tbl = timetable2table(tt);
-
-        
-        % Fit sparsest model within one standard error of the minimum MSE.
-        idxLambda1SE = L.Index1SE;
-        L.model_sparse_predictor_nmes   = L.PredictorNames(lamdas(:,idxLambda1SE)~=0);
-        L.model_sparse_fit              = fitlm(tbl,...
-            'ResponseVar', DV_name,...
-            'PredictorVars', L.model_sparse_predictor_nmes);
-        L.model_sparse_predictor_weights =  L.model_sparse_fit.Coefficients(L.model_sparse_predictor_nmes,:).Estimate;  
-        
-        
-        
-        %--------------------
-        % Fit model that corresponds to the minimum cross-validated mean squared error (MSE).
-        
-        idxLambdaMinMSE       = L.IndexMinMSE;        
-        L.model_minMSE_predictor_nmes   = L.PredictorNames(lamdas(:,idxLambdaMinMSE)~=0);     
-
-        L.model_minMSE_fit              = fitlm(tbl,...
-            'ResponseVar', DV_name,...
-            'PredictorVars', L.model_minMSE_predictor_nmes);
-        
-        L.model_minMSE_predictor_weights =  L.model_minMSE_fit.Coefficients(L.model_minMSE_predictor_nmes,:).Estimate;  
-        
-
-
-        
-                % Visually examine the cross-validated error of various levels of regularization.
-        % 
-        % close all;
-        % lassoPlot(B,FitInfo,'PlotType','Lambda','XScale','log');
-        % lassoPlot(B,FitInfo,'PlotType','CV');
-        % legend('show') % Show legend
-        % 
-        % text(.4,.6,sprintf(['The green circle and dotted line\n',...
-        %    '\tlocate the Lambda with minimum cross-validation error.\n',...
-        %     'The blue circle and dotted line\n',...
-        %     '\tlocate the point with minimum cross-validation error plus one standard deviation.']),...
-        %     'Units', 'normalized')
-        
-
-        nexttile
-        plot(t, Y, '-'); hold on;
-        
-        plot(t, L.model_minMSE_fit.predict, '-',...
-            'color', [.1, 1, .8, .7],...
-            'LineWidth', 7); hold on;
-        
-        plot(t, L.model_sparse_fit.predict, '-',...
-            'color', [.8, 1, .1, .4],...
-            'LineWidth', 5); hold on;          
-        
-        legend({'true return',...
-            'prediction of minMSE model',...
-            'prediction of sparse model'})
-        ylabel(DV_name, 'Interpreter', 'none')
-        
-        title(options.plot_title)
-        drawnow    
-    
-    
-        
-        
-        
-        
-end
-
 
 end
     
