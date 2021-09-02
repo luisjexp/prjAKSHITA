@@ -1,6 +1,6 @@
 # AKSHITA'S PROJECT: a course on time-series analysis
 
-This is a course  focusing on the analysis of time series data. The course is tailored for my student Akshita who is part of  **<u>Lumeire Education's</u>** Summer 2021 cohort. 
+The aim of this course is to introduce students to the analysis of time series data. The course is tailored for my student Akshita who is part of  **<u>Lumeire Education's</u>** Summer 2021 cohort. 
 
 <u>Quick Links</u>
 
@@ -15,7 +15,7 @@ See current version of the syllabus and course topics, click [here](SCHEDULE.md)
 
 # Research Project
 
-For Akshita's current draft of her manuscript, click  [here](MANUSCRIPT.md) 
+ Akshita's current draft of her manuscript is  [here](MANUSCRIPT.md) 
 
 Research Question
 

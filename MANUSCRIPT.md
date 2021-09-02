@@ -2,9 +2,7 @@
 
 Analysis
 
-- analyze chicago (but need npi data)
 - analyze tier de-restriction 
-- analyze vaccine policy efficacy 
 - Write python code for akshita
 
 
@@ -27,35 +25,35 @@ Figure of NPI policies
 
 <u>Covid death data and race data</u> 
 
-"We use publically avaialable datasets published by 3 counties in the state of california: Los angeles[**reference**], santa clara[ref] and San Francisco[**reference**] counties. Each of these data sets contained "
+We use publically avaialable datasets published by 3 counties in the state of california: Los angeles[**reference**], santa clara[ref] and San Francisco[**reference**] counties. Each of these data sets contained 
 
--  number of (new) cases?/deaths? for each day, accross time
--  begining on START DATE and ending on END DATE
--  Daily death/cases are measured for four ethnic groups: White, African American, Latino and Asian.
--  For each ethnic group, we convert the number cases on a given day to a percentage with respect to the group's total population size within that county. 
+-  daily counts of **DV_RAW** for  accross time begining on **START DATE** and ending on **END DATE**
+-  The DV is measured for four ethnic groups: White, African American, Latino and Asian.
+-  For each ethnic group, we convert the **DV_RAW** to a percentage, **DV**, by dividing **DV_raw** with the etihnic group's total population size within that county. 
    - an ethnic group's population size was aquired from [**reference** for county 1 2 3] 
--  The ethnic groups daily death percentage was then smoothed using a moving average of 7 days.
+-  The ethnic groups **DV** was then smoothed using a moving average of 7 days.
 
 <u>NPIs and county Tier status...</u>
 
-- Where are the NPI data sets from?
-  - We use a publicly dataset tracking the tier status of each of california counties accross time[**reference**].
-- How do we define an NPI. What are county tiers?
-  - What are the values (1:4)
-  - what do each of these values represent?
-  - give example of policy restrictions at each tier (see  [tier_status_details.pdf](aksPAPERS/tier_status_details.pdf) )
-  - We define an NPI policy a reduction in a counties its tier status, which represents a restrictions on social and economic activity. 
-- Some counties altered their tier status more often than others
+- We use a publicly available dataset that tracks non-pharemcutical interventions (NPI's) in each of California county accross time  [**reference**]. 
+
+- Specifically, an NPI is defined as as a change in the county's *tier status*. 
+
+  - When the tier of county changes,  restictions are imposed on social and economic activity accross the county 
+
+  - For example give example of policy restrictions at each tier (see  [tier_status_details.pdf](aksPAPERS/tier_status_details.pdf) )
+
+- Counties varied in the number of tier changes they underwent.  
 
 
 
 # Analysis (what we do)
 
-For each racial group, we assess the efficacy of a NPI on the covid-related deaths of that racial group.  
+For each racial group, we assess the efficacy of a NPI on **DV** of that racial group.  
 
-We define the onset of an NPI policy as the day a county reduced its tier status, thereby imposing restrictions on social and economic activity. 
+We define the onset of an NPI policy as the day in which NPI was declared, thereby imposing restrictions on social and economic activity from that day and forward.
 
-We assess each ethnic group's covid-related deaths following the onset of an NPI, from one to 29 days after, averaging accross all days, and policies.
+We assess the **DV** following the onset of an NPI, from one to 29 days after, averaging accross all days, and NPIs.
 
 This analysis was performed for each county individually, and in a seperate analysis,  accross all counties. 
 
@@ -68,7 +66,7 @@ The results are summarized in figure [X].
 We find that the effectiveness of NPIs on depended largely the county that implemented it. 
 
 - in the counties of San Francisco and Santa Clara,  NPIs affected  all ethnic groups equally. 
-- However, in the county of Los angeles,  Latinos, Asians, and African Americans showed a more of daily deaths than Whites following an NPI. 
+- However, following the onset of the NPI in the county of Los angeles,  Latinos, Asians, and African Americans,  **DV**  was larger  **DV** of Whites  following the days NPI. 
 
 
 
