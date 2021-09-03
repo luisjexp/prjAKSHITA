@@ -118,7 +118,10 @@ clc
 tt_raw = C.gentt_STATEWIDE_master();
 tt_raw.Properties.VariableNames'
 
-tt = removevars(tt_raw,{'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
+tt = removevars(tt_raw,{'',...
+    'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
+
+tt = tt_raw(:,{'wht_epiestimR', 'asn_epiestimR', 'ltn_epiestimR'});
 
 %% -- analyze
 clc

@@ -7,7 +7,7 @@ Analysis
 
 
 
-# Begin statewide analysis
+# Statewide analysis
 
 ## Introduction
 
@@ -23,7 +23,7 @@ Figure of NPI policies
 
 <u>Covid death data and race data</u> 
 
-We use publically avaialable datasets published by 3 counties in the state of california: Los angeles[**reference**], santa clara[ref] and San Francisco[**reference**] counties. Each of these data sets contained 
+We use publically available datasets published by the california government departmet of health [**REFERENCE**]. The data set contains
 
 -  daily counts of **DV_RAW** for  accross time begining on **START DATE** and ending on **END DATE**
 -  The DV is measured for four ethnic groups: White, African American, Latino and Asian.
@@ -61,10 +61,9 @@ This analysis was performed for each county individually, and in a seperate anal
 
 The results are summarized in figure [X].
 
-We find that the effectiveness of NPIs on depended largely the county that implemented it. 
 
-- in the counties of San Francisco and Santa Clara,  NPIs affected  all ethnic groups equally. 
-- However, following the onset of the NPI in the county of Los angeles,  Latinos, Asians, and African Americans,  **DV**  was larger  **DV** of Whites  following the days NPI. 
+
+However, following the onset of the NPI **DV** of  Latinos and Asians   was larger  than **DV** of Whites (F = xx.xx, p = x.xx)
 
 
 
