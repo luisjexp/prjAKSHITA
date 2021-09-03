@@ -115,18 +115,23 @@ figure(gcf)
 %% ----------------- ANALYZE STATEWIDE RACIAL COVID CASES ----------------- 
 
 clc
-tt_raw = C.gentt_STATEWIDE_master();
-tt_raw.Properties.VariableNames'
+tt = C.gentt_STATEWIDE_master();
+tt.Properties.VariableNames'
 
-tt = removevars(tt_raw,{'',...
-    'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
 
-tt = tt_raw(:,{'wht_epiestimR', 'asn_epiestimR', 'ltn_epiestimR',...
-    'aks_npi_onset', 'aks_npi_description'});
+% tt = removevars(tt,{'',...
+%     'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
+% 
+% tt = removevars(tt,{'',...
+%     'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
+
+
+
 
 %% -- analyze
 clc
-Y_var_name     = 'epiestimR'; 
+% Y_var_name     = 'epiestimR'; 
+Y_var_name     = 'death_pctof_racepop'
 event_idx           = tt.('aks_npi_onset') == 1;
 event_times_list    = tt.('Time')(event_idx) ;
 event_description   = tt.('aks_npi_description')(event_idx);  
