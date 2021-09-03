@@ -7,11 +7,9 @@ Analysis
 
 
 
+# Begin statewide analysis
 
-
-
-
-# Introduction
+## Introduction
 
 The problem
 
@@ -21,7 +19,7 @@ Figure of NPI policies
 
 <img src="/Users/luis/Library/Application Support/typora-user-images/image-20210829205005017.png" alt="image-20210829205005017" style="zoom:25%;" />
 
-# Data 
+## Data 
 
 <u>Covid death data and race data</u> 
 
@@ -47,7 +45,7 @@ We use publically avaialable datasets published by 3 counties in the state of ca
 
 
 
-# Analysis (what we do)
+## Analysis (what we do)
 
 For each racial group, we assess the efficacy of a NPI on **DV** of that racial group.  
 
@@ -59,7 +57,7 @@ This analysis was performed for each county individually, and in a seperate anal
 
 
 
-# Results (what we find)
+## Results (what we find)
 
 The results are summarized in figure [X].
 
@@ -70,11 +68,11 @@ We find that the effectiveness of NPIs on depended largely the county that imple
 
 
 
-<img src="/Users/luis/Library/Application Support/typora-user-images/image-20210829205106500.png" alt="image-20210829205106500" style="zoom:25%;" />
+<img src="aksASSETS/draft_figure_anova.png" alt="image-20210829205106500" style="zoom:25%;" />
 
 
 
-# Discussion
+## Discussion
 
 Limitations
 
@@ -88,13 +86,13 @@ Limitations
 
 
 
-# <u>CODE</u>
+## <u>CODE</u>
 
-# Data
+### Data
 
-## Types of data files
+#### Types of data files
 
-### raw data files
+##### raw data files
 
 general format
 
@@ -112,7 +110,7 @@ Types
 
 
 
-### Time table files
+##### Time table files
 
 time table files, no transmissability variable
 
