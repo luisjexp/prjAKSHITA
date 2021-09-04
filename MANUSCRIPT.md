@@ -2,10 +2,13 @@
 
 Analysis
 
-- analyze tier de-restriction 
 - Write python code for akshita
-
-
+- Anova Code in Python
+- Akshita assignment: 
+   - fix plots using power point or illustrator
+   - finish writing methods and results
+   - Begin outlining and writing conclusion/discussion
+   - prepare formating for publication 
 
 # Statewide analysis
 
@@ -25,37 +28,25 @@ Figure of NPI policies
 
 We use publically available datasets published by the california government departmet of health [**REFERENCE**]. The data set contains
 
--  daily counts of **DV_RAW** for  accross time begining on **START DATE** and ending on **END DATE**
+-  daily counts of **DV_RAW** accross time begining on **START DATE** and ending on **END DATE**
 -  The DV is measured for four ethnic groups: White, African American, Latino and Asian.
--  For each ethnic group, we convert the **DV_RAW** to a percentage, **DV**, by dividing **DV_raw** with the etihnic group's total population size within that county. 
-   - an ethnic group's population size was aquired from [**reference** for county 1 2 3] 
--  The ethnic groups **DV** was then smoothed using a moving average of 7 days.
+-  For each ethnic group, we convert the **DV_RAW** to a percentage by dividing **DV_raw** with the etihnic group's total population size in California . We refer to this outcome variable as **DV**.
+   - an ethnic group's population size was aquired from [**reference** for county 1 2 3]. These population estimates are estimates from the census counts in 2019. 
+-  **DV** was then smoothed using a moving average of 7 days.
 
-<u>NPIs and county Tier status...</u>
+<u>NPIs</u>
 
-- We use a publicly available dataset that tracks non-pharemcutical interventions (NPI's) in each of California county accross time  [**reference**]. 
+- We are interested in the effect of  non-pharemcutical interventions NPIs on the DV. We define NPIs as government policies that imposed restictions on social and economic activity accross the state of California. 
+- We manually collected N different NPIs, occuring between **start date** to **end date**  [**reference**]. These NPIs were manually collected from the following website (**reference**).
+   - For example, on DATE, the state of california implemented a mask mandate, which required, by law all of its residents to wear a mask when out doors.
+   - When the tier of county changes,  
 
-- Specifically, an NPI is defined as as a change in the county's *tier status*. 
-
-  - When the tier of county changes,  restictions are imposed on social and economic activity accross the county 
-
-  - For example give example of policy restrictions at each tier (see  [tier_status_details.pdf](aksPAPERS/tier_status_details.pdf) )
-
+   - For example give example of policy restrictions at each tier (see  [tier_status_details.pdf](aksPAPERS/tier_status_details.pdf) )
 - Counties varied in the number of tier changes they underwent.  
-
-
 
 ## Analysis (what we do)
 
-For each racial group, we assess the efficacy of a NPI on **DV** of that racial group.  
-
-We define the onset of an NPI policy as the day in which NPI was declared, thereby imposing restrictions on social and economic activity from that day and forward.
-
-We assess the **DV** following the onset of an NPI, from one to 29 days after, averaging accross all days, and NPIs.
-
-This analysis was performed for each county individually, and in a seperate analysis,  accross all counties. 
-
-
+We asses assess the **DV** following the onset of an NPI, from one to 10 days after its implementation. We average the values of the DV  accross all days and NPIs.
 
 ## Results (what we find)
 
@@ -80,8 +71,6 @@ Limitations
 - only 1-2 npis are being assessed. this may not be enough data.
 
   
-
-
 
 
 
@@ -122,15 +111,6 @@ time table files, with transmissability variabl
 - description
 
 
-
-Data file name formats
-the names of the data files have a specific format
-
-
-For raw csv files.
-
-- suffix 
-  dtaCSV_00format_dtaCSV_LEVEL_V1_vs_V2_datesource
 
 
 

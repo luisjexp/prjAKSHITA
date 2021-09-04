@@ -939,11 +939,11 @@ methods (Static)
         
         V = tt_R(tau_window,:).Variables ;
         
-         dR(:,:,evt_idx) = V - V(1,:);
-%          dR(:,:,evt_idx) =  V;
+         dR(:,:,evt_idx) = (V - V(1,:));
         
         
     end
+    
     
     % COMBINE DATA
     dR_events_pancake_race = squeeze(nanmean(dR, dim_race));
@@ -979,19 +979,19 @@ methods (Static)
  
     %% - - - - - - Plot the temporal response of Y each race. Ignore Event.
     
+    dR_races_pankake_events = log(dR_races_pankake_events + .001 - min(dR_races_pankake_events) );
+    
     figure(2)
     clf
     
     subplot(2,1,1)
-    y_data      = dR_pancake_race_and_events;
-    y_std       = dR_pancake_race_and_events_std;
-    plot(x, y_data, 'LineWidth', 15,'LineStyle', '-', 'Color', [0,0,0. .25])
-    hold on
+%     y_data      = dR_pancake_race_and_events;
+%     plot(x, y_data, 'LineWidth', 15,'LineStyle', '-', 'Color', [0,0,0. .25])
+%     hold on
     
-%     bar(y_data, 'FaceColor', [0,0,0], 'FaceAlpha', .25, 'EdgeAlpha', .25); hold on
-%     errorbar(x, y_data,y_std, 'o', 'Color', [0,0,0. .25]);
+     
+     
 
-     hold on;
     for i = 1:var_names_numof
         y_data      = dR_races_pankake_events(:,i);
         plot(x, y_data, 'LineStyle', ':', 'LineWidth', 5)
@@ -1001,7 +1001,7 @@ methods (Static)
         ylabel(sprintf('%s', y_var_name), 'Interpreter', 'none')
     end
     
-    legend([{'all'}, var_names_sorted], 'Interpreter', 'none')
+    legend([var_names_sorted], 'Interpreter', 'none')
             
     subplot(4, 2, 5)
     cla
@@ -1011,14 +1011,22 @@ methods (Static)
         'FaceColor', [0,0,0], 'FaceAlpha', .25, 'EdgeAlpha', .25); hold on
     
     
-    sr = std(dR_races_pankake_events)/sqrt(size(dR_races_pankake_events,1))
+    sr = std(dR_races_pankake_events)/sqrt(size(dR_races_pankake_events,1));
     errorbar(categorical(var_names_sorted),...
         mean(dR_races_pankake_events),...
         sr,...
         'o', 'Color', [0,0,0. .25]);            
-   
-   
-anova1(dR_races_pankake_events)
+    
+    
+    
+    set(gcf, 'WindowStyle', 'Docked');    
+    
+    
+    anova1(dR_races_pankake_events)
+    set(gca, 'XTickLabel',  categorical(var_names_sorted))
+    
+    set(gcf, 'WindowStyle', 'Docked');    
+    
     
 end
 

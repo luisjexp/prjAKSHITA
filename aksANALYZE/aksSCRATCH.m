@@ -136,7 +136,7 @@ event_idx           = tt.('aks_npi_onset') == 1;
 event_times_list    = tt.('Time')(event_idx) ;
 event_description   = tt.('aks_npi_description')(event_idx);  
 
-
+close all
 C.ANZ_effect_of_npi_STA(tt, Y_var_name, event_times_list,...
     event_description = event_description)
 
