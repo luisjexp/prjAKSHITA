@@ -26,35 +26,49 @@ Figure of NPI policies
 
 <u>Covid death data and race data</u> 
 
-We use publically available datasets published by the california government departmet of health [**REFERENCE**]. The data set contains
+We use a publically available dataset provided by the California Departmet of Health [**REFERENCE**]. The data set contains
 
 -  daily counts of **DV_RAW** accross time begining on **START DATE** and ending on **END DATE**
--  The DV is measured for four ethnic groups: White, African American, Latino and Asian.
--  For each ethnic group, we convert the **DV_RAW** to a percentage by dividing **DV_raw** with the etihnic group's total population size in California . We refer to this outcome variable as **DV**.
-   - an ethnic group's population size was aquired from [**reference** for county 1 2 3]. These population estimates are estimates from the census counts in 2019. 
--  **DV** was then smoothed using a moving average of 7 days.
+-  Data is obtained for N different ethnic groups: White, African American, Latino and Asian.
+-  For the analysis, **DV_RAW** is converted to a percentage by dividing **DV_raw** with the etihnic group's total population size in California. We refer to this outcome variable as **DV**.
+   - an ethnic group's population size was aquired from [**reference** for county 1 2 3]. These population counts are estimates from the census counts in 2019. 
+-  **DV** is smoothed using a moving average of 7 days.
+
+Figure () shows the **DV** accross N days, for each ethnic group considered in this analysis. 
 
 <u>NPIs</u>
 
-- We are interested in the effect of  non-pharemcutical interventions NPIs on the DV. We define NPIs as government policies that imposed restictions on social and economic activity accross the state of California. 
-- We manually collected N different NPIs, occuring between **start date** to **end date**  [**reference**]. These NPIs were manually collected from the following website (**reference**).
-   - For example, on DATE, the state of california implemented a mask mandate, which required, by law all of its residents to wear a mask when out doors.
-   - When the tier of county changes,  
+- We are interested in the effect of non-pharemcutical interventions (NPIs) on the DV of each ethinic group. We define NPIs as government policies that impose restictions on social and economic activity accross the state of California. 
+- In the analysis, we include N NPIs occuring between **start date** to **end date**  [**reference**]. These NPIs were manually collected from **this reference**.
+   - An example NPI was implemebted on **DATE**, where the state of california imposed a mask mandate reqiuring, by law, all of its residents to wear a mask when out doors.
 
-   - For example give example of policy restrictions at each tier (see  [tier_status_details.pdf](aksPAPERS/tier_status_details.pdf) )
-- Counties varied in the number of tier changes they underwent.  
+The vertical lines in **Figure ()** reveal the dates a short description of the NPIs used in this report. 
 
-## Analysis (what we do)
 
-We asses assess the **DV** following the onset of an NPI, from one to 10 days after its implementation. We average the values of the DV  accross all days and NPIs.
+
+## Analysis 
+
+To determine the effect of non-pharemcutical interventions (NPIs) on the **DV** of each ethinic group, we ask how much **DV changed** following the onset of an NPI.  Specifically, after each NPI, we compute change in the **DV** for D days following the NPI. We then take the average of the change in the DV accross the D days and accross all NPIs. We refer to this final value as **dY**.
+
+
+$$
+{\Delta}{Y_n} = \dfrac{1}D\sum_{i=1}^{D}(Y_{d_0} - Y_{d_i})
+$$
+
+$$
+{\Delta}\bar{Y} =  \dfrac{1}N\sum_{n=1}^{N}{  {\Delta}{Y_n} }
+$$
+
+
 
 ## Results (what we find)
 
-The results are summarized in figure [X].
+The results are summarized in figure [X]. 
 
-
-
-However, following the onset of the NPI **DV** of  Latinos and Asians   was larger  than **DV** of Whites (F = xx.xx, p = x.xx)
+- We begin by assuming the **average change in DV** following an NPI is similar for all ethnic groups. Using a one way anova test,  we  reject this hypothesis  (F = xx.xx, p = x.xx). 
+- Second we ask if minority ethnic groups (Latinos, native Americans) are impacted by NPIs in the same manner as Whites. As shown in **FIGURE X**
+   - we find a significant difference in the **DV**  for whites versus latinos (t = x.xx, p = x.xx). 
+   - Similarly, we find that, following an NPI, the **DV** of whites is smaller than the following ETHNIC GROUPS, whites and ETHNIC group and whites  
 
 
 
