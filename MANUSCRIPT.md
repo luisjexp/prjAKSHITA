@@ -10,9 +10,7 @@ Analysis
    - Begin outlining and writing conclusion/discussion
    - prepare formating for publication 
 
-# Statewide analysis
-
-## Introduction
+# Introduction
 
 The problem
 
@@ -20,7 +18,9 @@ Hypothesis...
 
 Figure of NPI policies
 
-<img src="/Users/luis/Library/Application Support/typora-user-images/image-20210829205005017.png" alt="image-20210829205005017" style="zoom:25%;" />
+
+
+# Methods
 
 ## Data 
 
@@ -29,54 +29,78 @@ Figure of NPI policies
 We use a publically available dataset provided by the California Departmet of Health [**REFERENCE**]. The data set contains
 
 -  daily counts of **DV_RAW** accross time begining on **START DATE** and ending on **END DATE**
--  Data is obtained for N different ethnic groups: White, African American, Latino and Asian.
+-  Data is obtained for N different ethnic groups: White, African American,..., Latino and Asian.
 -  For the analysis, **DV_RAW** is converted to a percentage by dividing **DV_raw** with the etihnic group's total population size in California. We refer to this outcome variable as **DV**.
-   - an ethnic group's population size was aquired from [**reference** for county 1 2 3]. These population counts are estimates from the census counts in 2019. 
+   - The population size of each ethnic group's is taken from [**reference** for county 1 2 3]. These population counts are estimates from the census counts in 2019. 
 -  **DV** is smoothed using a moving average of 7 days.
 
 Figure () shows the **DV** accross N days, for each ethnic group considered in this analysis. 
 
+
+
 <u>NPIs</u>
 
-- We are interested in the effect of non-pharemcutical interventions (NPIs) on the DV of each ethinic group. We define NPIs as government policies that impose restictions on social and economic activity accross the state of California. 
-- In the analysis, we include N NPIs occuring between **start date** to **end date**  [**reference**]. These NPIs were manually collected from **this reference**.
+- Are primary interest is to assess how ethnic populations are impacted by non-pharemcutical interventions (NPIs) impact. We define NPIs as government policies that impose restictions on social and economic activity accross the state of California. 
+- In the analysis, we use N NPIs occuring between **start date** to **end date**  [**reference**]. These NPIs are aquired from **this reference**.
    - An example NPI was implemebted on **DATE**, where the state of california imposed a mask mandate reqiuring, by law, all of its residents to wear a mask when out doors.
 
 The vertical lines in **Figure ()** reveal the dates a short description of the NPIs used in this report. 
 
-
+<img src="aksCOMM/file0_202197.png" alt="image-20210829205106500" style="zoom:50%;" />
 
 ## Analysis 
 
-To determine the effect of non-pharemcutical interventions (NPIs) on the **DV** of each ethinic group, we ask how much **DV changed** following the onset of an NPI.  Specifically, after each NPI, we compute change in the **DV** for D days following the NPI. We then take the average of the change in the DV accross the D days and accross all NPIs. We refer to this final value as **dY**.
+To determine the effect of non-pharemcutical interventions (NPIs) on the **DV** of each ethinic group, we ask how much **DV changed** following the onset of an NPI.  Specifically, after each NPI, we compute change in the **DV** for D days following the NPI. We then take the average of the change in the DV accross the D days and accross all NPIs. We refer to this final value as **dY**. dY was computed seperately for each ethnic population. 
 
 
 $$
-{\Delta}{Y_n} = \dfrac{1}D\sum_{i=1}^{D}(Y_{d_0} - Y_{d_i})
+
+$$
+
+$$
+{\Delta}\bar{Y}{_{race}} =  \dfrac{1}N\sum_{n=1}^{N}{  {\Delta}{y_n} }
 $$
 
 $$
-{\Delta}\bar{Y} =  \dfrac{1}N\sum_{n=1}^{N}{  {\Delta}{Y_n} }
+{\Delta}{y_n} = \dfrac{1}D\sum_{i=1}^{D}(y_{d_0} - y_{d_i})
 $$
 
-
-
-## Results (what we find)
+# Results
 
 The results are summarized in figure [X]. 
 
-- We begin by assuming the **average change in DV** following an NPI is similar for all ethnic groups. Using a one way anova test,  we  reject this hypothesis  (F = xx.xx, p = x.xx). 
-- Second we ask if minority ethnic groups (Latinos, native Americans) are impacted by NPIs in the same manner as Whites. As shown in **FIGURE X**
-   - we find a significant difference in the **DV**  for whites versus latinos (t = x.xx, p = x.xx). 
-   - Similarly, we find that, following an NPI, the **DV** of whites is smaller than the following ETHNIC GROUPS, whites and ETHNIC group and whites  
+## ANOVA
+
+We begin by testing the hypothesis that the **average change in DV** following an NPI is similar for all ethnic groups. Using a one way anova test, we reject this hypothesis  [ F(6,105) = 17.40, p = 0.00]. 
 
 
 
-<img src="aksASSETS/draft_figure_anova.png" alt="image-20210829205106500" style="zoom:25%;" />
+<img src="aksCOMM/file1_202197.svg" alt="image-20210829205106500" style="zoom:50%;" />
+
+<img src="aksCOMM/file2_202197.svg" alt="image-20210829205106500" style="zoom:50%;" />
+
+<img src="aksCOMM/file3_202197.svg" alt="image-20210829205106500" style="zoom:100%;" />
 
 
 
-## Discussion
+## T-Tests
+
+Second we ask if minority ethnic groups (Latinos,..., and native Americans) are impacted by NPIs as Whites are. As shown in **FIGURE X**
+
+- we find a significant difference in the **DV**  for whites versus latinos (t = x.xx, p = x.xx). 
+- Similarly, we find that, following an NPI, the **DV** of whites is smaller than the following ETHNIC GROUPS, whites and ETHNIC group and whites  
+
+<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
+
+<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
+
+<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
+
+<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
+
+
+
+# Discussion
 
 Limitations
 
@@ -87,42 +111,6 @@ Limitations
   
 
 
-
-## <u>CODE</u>
-
-### Data
-
-#### Types of data files
-
-##### raw data files
-
-general format
-
-Types
-
-- cal gov data files
-- git county tier data file
-- global npi data file
-- santa clara data files
-- san francisco data files
-
-
-- chicago
-  - case data (https://data.cityofchicago.org/Health-Human-Services/Daily-COVID-19-Cases-by-Race-Ethnicity/4jg2-s2f8)
-
-
-
-##### Time table files
-
-time table files, no transmissability variable
-
-- format
-- description: these are fully (nearly) processed data files. there is one variable that they are missing, and thats the transmissablity (R) variable 
-
-time table files, with transmissability variabl
-
-- format
-- description
 
 
 

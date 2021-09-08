@@ -2,12 +2,47 @@
 cd /Users/luis/Box/prjAKSHITA/
 addpath /Users/luis/Box/prjAKSHITA/aksDATA/
 addpath /Users/luis/Box/prjAKSHITA/aksANALYZE/
+addpath /Users/luis/Box/prjAKSHITA/
 edit /Users/luis/Box/prjAKSHITA/aksANALYZE/csvimporter.m
 
 clear;
 clc
-V = ttviewer;
 C = csvimporter;
+
+
+%% ----------------- ANALYZE STATEWIDE RACIAL COVID CASES ----------------- 
+
+clc
+tt = C.gentt_STATEWIDE_master();
+tt.Properties.VariableNames'
+
+
+%% -- analyze
+clc
+% Y_var_name     = 'epiestimR'; 
+Y_var_name     = 'death_pctof_racepop';
+event_idx           = tt.('aks_npi_onset') == 1;
+event_times_list    = tt.('Time')(event_idx) ;
+event_description   = tt.('aks_npi_description')(event_idx);  
+
+close all
+C.ANZ_effect_of_npi_STA(tt, Y_var_name, event_times_list,...
+    event_description = event_description)
+
+
+%% Print Figures
+
+figs = findobj(0, 'type', 'figure');
+d = round(clock);
+d =  sprintf('%d', d(1:3));
+for k=1:length(figs)
+    % print each figure in figs to a separate .eps file 
+    fname = sprintf('/Users/luis/Box/prjAKSHITA/aksCOMM/file%d_%s.svg', k, d);
+    print(figs(k), '-dsvg', fname) 
+end
+
+
+%% ----------------- COUNTY ANALYSIS ----------------- 
 
 
 %% ----------------- ANALYZE LOS ANGELES ----------------- 
@@ -110,35 +145,6 @@ legend({'asn', 'ltn', 'blk', 'pcf', 'wht'})
 figure(gcf)
 
 
-
-
-%% ----------------- ANALYZE STATEWIDE RACIAL COVID CASES ----------------- 
-
-clc
-tt = C.gentt_STATEWIDE_master();
-tt.Properties.VariableNames'
-
-
-% tt = removevars(tt,{'',...
-%     'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
-% 
-% tt = removevars(tt,{'',...
-%     'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
-
-
-
-
-%% -- analyze
-clc
-% Y_var_name     = 'epiestimR'; 
-Y_var_name     = 'death_pctof_racepop'
-event_idx           = tt.('aks_npi_onset') == 1;
-event_times_list    = tt.('Time')(event_idx) ;
-event_description   = tt.('aks_npi_description')(event_idx);  
-
-close all
-C.ANZ_effect_of_npi_STA(tt, Y_var_name, event_times_list,...
-    event_description = event_description)
 
 
 
