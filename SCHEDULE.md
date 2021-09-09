@@ -1,6 +1,6 @@
 # <u>SCHEDULE</u>
 
-# **WEEK 1: INTRODUCE YOURSELF!**
+# **INTRODUCE YOURSELF!**
 
 Discuss interest and goals: 
 
@@ -21,13 +21,13 @@ Discuss communication methods
 
 ------
 
-# **WEEK 2: MACHINE LEARNING APPLICATIONS** 
+# **MACHINE LEARNING APPLICATIONS** 
 
 ## CONCEPTS
 
 Types of machine learning methods
 
-- linear regression
+- linear regression, time series analysis
 - classification 
 - dimension reduction methods
 
@@ -38,77 +38,65 @@ Machine learning applications
 ## DUE
 
 - what kind of method and application interests you? 
+- 
+
+
 
 ------
 
-# **Week 3: OVERVIEW OF LINEAR REGRESSION**
+# **The Research Project**
 
 ## CONCEPTS
 
-Linear Regression
+Developing a significant Research Question
 
-- Application
-- procedure: error definition, cost function, iterative method 
+Clarifying your hypothesis 
 
-Time series analysis
+Choosing a method of Analysis 
 
-- lagged regressions
-- reverse correlations and windowing
-
-## DUE
-
-FORMULATION AND SUBMISSION OF RESEARCH QUESTION
-
-------
-
-# **WEEK 4: IMPORTANCE OF SIGNIFICANCE OF YOUR RESEARCH**
-
-## CONCEPTS WE COVERED
-
-Significance of Research Questions
-
-Choosing analysis methods 
-
-Literature reviews 
+Literature reviews and searching for data
 
 Brainstorming and Formulating Outlines
 
 ## DUE:
 
-SUBMIT PROPOSAL!
+FORMULATION AND SUBMISSION OF RESEARCH QUESTION
+
+
 
 ------
 
-# **WEEK 5: OPERATIONALIZING RESEARCH QUESTIONS AND DATA COLLECTION** 
+# **OPERATIONALIZING YOUR RESEARCH**
 
 ## CONCEPTS
 
-Operationalizing research questions
+Operationalizing your research
 
 - continuous, categorical and dummy variables 
-
-Data pre processing
-
-- Importing data
-- cleaning missing data
-- recoding data
+- operationalizing your hypothesis
 
 ## WRITING INTRODUCTIONS
 
 - Significance, Knowledge gaps, Problems, and Challenges
 
+## DUE
+
+SUBMIT PROJECT PROPOSAL!
+
 ------
 
-# **WEEK 6: DATA VISUALIZATION AND EXPLAINING VARIATION W NULL MODELS**
+# **DATA PREPROCESSING AND VISUALIZATION**
 
 ## CONCEPTS
 
-Used python to Preprocess data
+Data pre processing Using Python, Pandas and Matplot lib
 
-- import CSV files to pandas data frames
-- merging multiple data frames 
+- Importing data: Importing CSV files 
+- Merging and Joining data Sets
+- Cleaning missing data
+- Recoding data and generating new variables
 
-Used python to describe and visualize data
+Used Matplotlib to describe and visualize data
 
 - extract statistics from data 
 - plot histograms of variables 
@@ -118,9 +106,37 @@ Used python to describe and visualize data
 
 - finalized outline for submittion
 
-------
+---
 
-# **WEEK 7:** NO MEETING (SKIPPED)
+#  EXPLAINING VARIATION W NULL MODELS
+
+
+
+---
+
+# **REGRESSION TECHNIQUES**
+
+## CONCEPTS
+
+Linear Regression
+
+- Applications
+- procedure: error definition, cost function, iterative method 
+
+Time series analysis
+
+- lagged regressions
+- reverse correlations and windowing
+
+Statistical Significance and hypothesis testing
+
+## DUE
+
+
+
+---
+
+# NO MEETING (SKIPPED)
 
 ## CONCEPTS
 
@@ -134,14 +150,8 @@ Used python to describe and visualize data
 
 Learning Python
 
-- pandas library
+- 
 
-- - importing data
-  - data organization and querying 
-
-- Matplotlib
-
-- - visualizing data
 
 Current Issues
 

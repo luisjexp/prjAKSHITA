@@ -9,7 +9,7 @@ The aim of this course is to introduce students to the analysis of time series d
 - The data analysis for the project, written in Python, Matlab and R, can be found in [this folder](aksANALYZE)   
 - See [this link](https://www.lumiere-education.com/)  for more info on Lumeire Education
 
-# Course Syllabus 
+# Course Syllabus, Teaching Notes 
 
 See current version of the syllabus and course topics, click [here](SCHEDULE.md) 
 

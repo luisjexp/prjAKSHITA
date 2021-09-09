@@ -52,10 +52,10 @@ if (sum(complete.cases(I))>10) {
     I_clipped = I[mn:mx]
     num_incidence = NROW(I_clipped)
     
-    Mean.SI = 4.46
-    Std.SI = 2.23
+    Mean.SI = 4.5
+    Std.SI = 2.2
     method = "parametric_si"
-    Mean.Prior = 1.2
+    Mean.Prior = 1
     Std.Prior = .2
     t_start = seq(2, num_incidence-1)
     t_end   = t_start + 1
@@ -84,6 +84,7 @@ tt_new <- cbind(tt,tt_r_correct_names )
 
 write.csv(tt_new,fname_2_export, row.names = FALSE)
 print(fname_2_export)
+print('I EDITED THIS A BIT')
 print('DONE PROCESSING, R ADDED TO *****STATEWIDE**** TIME TABLE')
 
 

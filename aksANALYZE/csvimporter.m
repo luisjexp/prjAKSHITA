@@ -100,12 +100,12 @@ methods (Static)
     % NOTE KEEP THIS PROCEDURE IN THIS ORDER...
         %   GET CALI DATA   
         opts    = detectImportOptions(fname);
-        tbl     = readtable(fname, opts);
+        tt     = readtable(fname, opts);
         %   PULL DATA FROM SPECIFIC RACIAL GROUP FIRST
-        tbl = pullracedata(tbl);
+        tt = pullracedata(tt);
 
         %   CONVERT TO TIME TABLE (rename, sort rows, then retime)
-        tt     = table2timetable(tbl, 'RowTimes', varname_datetime); 
+        tt     = table2timetable(tt, 'RowTimes', varname_datetime); 
 
         % rename datetime var to 'Time' for joining tables 
         tt.Properties.DimensionNames{1} = 'Time';
@@ -130,6 +130,40 @@ methods (Static)
 
         tt = ttvargenerator.diffOfLogsCont(tt, 'calgov_case_count_daily_wkave',...
             var_name_new = 'calgov_case_pctchange_daily_wkave');
+
+
+            switch upper(race_str)
+                case 'WHITE'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(14356081, height(tt),1));
+                    
+                case 'BLACK'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(2171989, height(tt),1));
+                    
+
+                case 'LATINO'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(15574882, height(tt),1));
+                    
+                        
+                case 'ASIAN'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(5786711, height(tt),1));
+                    
+                    
+                case 'AMERICAN INDIAN OR ALASKA NATIVE'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(149063, height(tt),1));
+                    
+                    
+                case 'MULTI-RACE'
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(1224113, height(tt),1));
+                    
+                    
+                case upper('native hawaiian AND other pacific islander')
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(141846, height(tt),1));
+                    
+      
+                    
+            end
+            
+%         tt = 100.*(tt.calgov_case_count_daily_wkave/tt.population);            
 
         
     %                                         'calgov_death_count_cum', 'difference', 'calgov_death_count_daily',...    
@@ -427,6 +461,7 @@ methods (Static)
         tt_statwide = outerjoin(tt_covidcase_allraces,tt_NPIs,...
             'MergeKeys', true); 
 
+        
         % write to csv (note that this does not contain R variable)
         fname_tt_without_R   = sprintf(C.fname_tt_statewide_format, C.fname_tag_epistem_notadded );    
         writetimetable(tt_statwide, fname_tt_without_R);  
@@ -438,11 +473,12 @@ methods (Static)
         
         tt_statwide = C.preproc_addvar_epiestim('statewide') ;
         tt_statwide = table2timetable(tt_statwide, 'RowTimes', 'Time');
-        
         if ~isregular(tt_statwide)
             error('luis')
         end
-        fprintf('\n\n FINISHED ADDING EPISTEM TO STATEWIDETIME TABLE, NEW FILE ADDED\n\n')        
+        writetimetable(tt_statwide, [C.data_file_path 'TT_statewide_gcollab.csv'])
+        
+        fprintf('\n\n FINISHED ADDING EPISTEM TO STATEWIDETIME TABLE, SAVED TABLE\n\n')        
         
          
     end
@@ -460,6 +496,10 @@ methods (Static)
             tt              = outerjoin(tt,tt_race_merged, 'MergeKeys', true);
         end
         
+  
+        
+            
+            
         
         % - - - get statewide covid cases for one race onlys    
         function tt = gentt_statewide_covidcase_for_onerace(race_val)
@@ -853,7 +893,7 @@ methods (Static)
 
 
 %% ANALYSIS 
-    function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
+    function [dR_races_pankake_events,var_names] = ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
     %% - - - EFFECT OF NPIs ON change in outcomes
     arguments
         tt_all_race
@@ -871,14 +911,15 @@ methods (Static)
     var_names_numof         = numel(var_names_sorted);
     
     tt_R = tt_all_race(:, var_names_sorted);
-
     
     npi_events_number_of = numel(event_times_list);
+    
+    
     
     figure(1)
     clf;    
     
-    days_post_event_num  = 10;
+    days_post_event_num  = 20;
     days_post_event     = days(days_post_event_num);
      
     %% - - - - - - ORIGINAL 
@@ -899,16 +940,13 @@ methods (Static)
         
         V = tt_R(tau_window,:).Variables ;
         
-        dR(:,:,evt_idx) = V(1,:) - V;
-        
+         dR(:,:,evt_idx) = (V - V(1,:));
     end
+    
     
     % COMBINE DATA
     dR_events_pancake_race = squeeze(nanmean(dR, dim_race));
     dR_races_pankake_events = squeeze(nanmean(dR, dim_event));
-    
-    dR_pancake_race_and_events = squeeze( nanmean(nanmean(dR,dim_race),dim_event) ) ;
-    dR_pancake_race_and_events_std = nanstd(nanmean(dR,dim_race),0,dim_event);
     
     
     %% - - - - - - Plot the temporal response of Y to each event X. Ignore races.    
@@ -934,46 +972,29 @@ methods (Static)
         drawnow
     end
     
- 
     %% - - - - - - Plot the temporal response of Y each race. Ignore Event.
+    
+    dR_races_pankake_events = log(dR_races_pankake_events + .001 - min(dR_races_pankake_events) );
     
     figure(2)
     clf
     
-    subplot(2,1,1)
-    y_data      = dR_pancake_race_and_events;
-    y_std       = dR_pancake_race_and_events_std;
-    plot(x, y_data, 'LineWidth', 15,'LineStyle', '-', 'Color', [0,0,0. .25])
-    hold on
-    
-%     bar(y_data, 'FaceColor', [0,0,0], 'FaceAlpha', .25, 'EdgeAlpha', .25); hold on
-%     errorbar(x, y_data,y_std, 'o', 'Color', [0,0,0. .25]);
 
-     hold on;
     for i = 1:var_names_numof
         y_data      = dR_races_pankake_events(:,i);
         plot(x, y_data, 'LineStyle', ':', 'LineWidth', 5)
         
         hold on;
-        xlabel('Days before/after npi')
-        ylabel(sprintf('%s', y_var_name), 'Interpreter', 'none')
+        xlabel('Days After NPI')
+        ylabel(('Log Change in Mortality'), 'Interpreter', 'none')
     end
     
-    legend([{'all'}, var_names_sorted], 'Interpreter', 'none')
+    legend([var_names_sorted], 'Interpreter', 'none')
             
-    subplot(4, 2, 5)
-    cla
-    
-    bar(categorical(var_names_sorted), ...
-        mean(dR_races_pankake_events),...
-        'FaceColor', [0,0,0], 'FaceAlpha', .25, 'EdgeAlpha', .25); hold on
-    
-    errorbar(categorical(var_names_sorted),...
-        mean(dR_races_pankake_events),...
-        std(dR_races_pankake_events),...
-        'o', 'Color', [0,0,0. .25]);            
-   
-   
+%     h = get(gca, 'YLabel');
+    set(gcf, 'WindowStyle', 'Docked');    
+    set(gcf, 'WindowStyle', 'Docked');    
+    var_names = categorical(var_names_sorted);
     
     
 end

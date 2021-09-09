@@ -2,12 +2,74 @@
 cd /Users/luis/Box/prjAKSHITA/
 addpath /Users/luis/Box/prjAKSHITA/aksDATA/
 addpath /Users/luis/Box/prjAKSHITA/aksANALYZE/
+addpath /Users/luis/Box/prjAKSHITA/
 edit /Users/luis/Box/prjAKSHITA/aksANALYZE/csvimporter.m
 
 clear;
 clc
-V = ttviewer;
 C = csvimporter;
+
+
+%% ----------------- ANALYZE STATEWIDE RACIAL COVID CASES ----------------- 
+
+clc
+tt = C.gentt_STATEWIDE_master();
+tt.Properties.VariableNames'
+
+
+%% -- analyze
+
+clc
+% Y_var_name     = 'epiestimR'; 
+Y_var_name     = 'death_pctof_racepop';
+event_idx           = tt.('aks_npi_onset') == 1;
+event_times_list    = tt.('Time')(event_idx) ;
+event_description   = tt.('aks_npi_description')(event_idx);  
+
+close all
+[dR, var_names] = C.ANZ_effect_of_npi_STA(tt, Y_var_name, event_times_list,...
+    event_description = event_description);
+
+
+
+%% T TESTS
+idx_asn = 1;
+idx_blk = 2;
+idx_ltn = 3;
+idx_mlt = 4;
+idx_ntv = 5;
+idx_pcf = 6;
+idx_wht = 7;
+
+clc
+[P,ANOVA_cell,STATS] = anova1(dR, var_names);
+h = get(gca, 'YLabel');
+set(h, 'String', 'Log Change in Mortality');
+ANOVA_tbl = cell2dataset(ANOVA_cell);
+
+
+
+[c,~,~,gnames] = multcompare(STATS);
+TTEST_tbl = cell2table([gnames(c(:,1)), gnames(c(:,2)), num2cell(c(:,3:6))]);
+TTEST_tbl.Properties.VariableNames = {'group_i', 'group_j', 'CI_lower', 'dMEANS',  'CI_upper', 'pval'};
+
+TTEST_tbl = [TTEST_tbl,  table(TTEST_tbl.pval<.025, 'VariableNames', {'is_sig'})]
+
+
+
+%% Print Figures
+
+figs = findobj(0, 'type', 'figure');
+d = round(clock);
+d =  sprintf('%d', d(1:3));
+for k=1:length(figs)
+    % print each figure in figs to a separate .eps file 
+    fname = sprintf('/Users/luis/Box/prjAKSHITA/aksCOMM/file%d_%s.svg', k, d);
+    print(figs(k), '-dsvg', fname) 
+end
+
+
+%% ----------------- COUNTY ANALYSIS ----------------- 
 
 
 %% ----------------- ANALYZE LOS ANGELES ----------------- 
@@ -110,26 +172,6 @@ legend({'asn', 'ltn', 'blk', 'pcf', 'wht'})
 figure(gcf)
 
 
-
-
-%% ----------------- ANALYZE STATEWIDE RACIAL COVID CASES ----------------- 
-
-clc
-tt_raw = C.gentt_STATEWIDE_master();
-tt_raw.Properties.VariableNames'
-
-tt = removevars(tt_raw,{'pcf_epiestimR', 'mlt_epiestimR', 'ntv_epiestimR', 'blk_epiestimR'});
-
-%% -- analyze
-clc
-Y_var_name     = 'epiestimR'; 
-event_idx           = tt.('aks_npi_onset') == 1;
-event_times_list    = tt.('Time')(event_idx) ;
-event_description   = tt.('aks_npi_description')(event_idx);  
-
-
-C.ANZ_effect_of_npi_STA(tt, Y_var_name, event_times_list,...
-    event_description = event_description)
 
 
 
