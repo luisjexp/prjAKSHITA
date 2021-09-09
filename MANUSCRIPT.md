@@ -96,7 +96,7 @@ We begin by testing the hypothesis that the **mean change in mortality** followi
 
 
 
-<img src="aksCOMM/plot_anova_box_plot.png" alt="image-20210909155912736" style="zoom: 33%;" />
+<img src="aksCOMM/anova_box_plot.png" alt="image-20210909155912736" style="zoom: 33%;" />
 
 
 
