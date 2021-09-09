@@ -41,7 +41,7 @@ Motivation
 
 Solution
 
-- To resolve this issue we divide the mortality on the *i_th* day by the group's population size in California. We refer to this outcome variable as the *death rate*....
+- To resolve this issue we divide the mortality on the *i_th* day by the group's population size in California. We refer to this outcome variable as the *death rate*.
 
 $$
 m_{d_i} = NumberOfMortalities/EthnicPopulation
@@ -92,9 +92,9 @@ We begin by testing the hypothesis that the **mean change in mortality** followi
 
 
 
-<img src="aksCOMM/file1_202197.svg" alt="image-20210829205106500" style="zoom:25%;" />
+<img src="aksCOMM/file1_202197.svg" alt="image-20210829205106500" style="zoom:5-%;" />
 
-<img src="aksCOMM/file2_202197.svg" alt="image-20210829205106500" style="zoom:25%;" />
+<img src="aksCOMM/file2_202197.svg" alt="image-20210829205106500" style="zoom:5-%;" />
 
 <img src="aksCOMM/file3_202197.svg" alt="image-20210829205106500" style="zoom:50%;" />
 
@@ -121,13 +121,60 @@ As shown in **FIGURE X**
 
 # Discussion
 
-Limitations
+### Findings
 
-- no baseline measurment
+<u>Discuss: ALL Racial Groups that did not benefit as much as whites: Latinos, Pacific Islanders, native Americans, african Americans</u> 
 
-- only 1-2 npis are being assessed. this may not be enough data.
+Findings
 
-  
+- We found that following an NPI, the death rate for Latinos, Pacific Islanders, native Americans, african Americans  increased more than the death rate for whites.
+
+Elaborate
+
+- This suggests that NPIs benefited whites more than the minority groups. 
+
+- Why does this happen. Restate your introduction and hypothesis. 
+   - government policies are no effectively communicated with minority groups
+   - some minority cultures hold negative views of health care system 
+   - Due to pverty. minorities are more likely to live in households with alot people 
+   - kind of employment (close contact employment), mandatory work (can work from home as high income population)
+
+<u>Discuss:  Racial Groups that benefited poorly: Latinos Pacific Islanders</u> 
+
+Findings
+
+- Out of all minoity groups, Latinos and Pacific Islanders death rates increased much more than Whites. 
+
+Elaborate
+
+- why do NPIs not impect latinos and pacific islanders as much
+
+<u>Discuss:  Racial Groups that benefited from NPIs as much as whites (Asians)</u>
+
+Findings
+
+- We found that following an NPI, death rate for asians whites changed in a similar manner as whites.
+
+Elaborate
+
+
+
+### Limitations
+
+- Only used 7 npis are being assessed. this may not be enough data.
+- Use of death rates may not be ideal (maybe we could have used transmisablity measure)
+- we only compared the death rates between racial groups, but we did not assess the overall effictively of the NPI. 
+
+
+
+### Next steps
+
+- Within county analysis, because maybe inequalities exist in certain counties, or other areas of the united Staes, but not others
+- Assess different age groups within each ethnicity 
+
+
+
+
 
 
 
