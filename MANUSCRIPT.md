@@ -100,7 +100,7 @@ We begin by testing the hypothesis that the **mean change in mortality** followi
 
 
 
-<img src="/Users/luis/Library/Application Support/typora-user-images/image-20210909155325573.png" alt="image-20210909155325573" style="zoom:33%;" />
+<img src="aksCOMM/anova_table.png" alt="image-20210909155325573" style="zoom:33%;" />
 
 ## T-Tests
 
