@@ -134,30 +134,30 @@ methods (Static)
 
             switch upper(race_str)
                 case 'WHITE'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(14356081, height(tt),1 );
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(14356081, height(tt),1));
                     
                 case 'BLACK'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(2171989, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(2171989, height(tt),1));
                     
 
                 case 'LATINO'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(15574882, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(15574882, height(tt),1));
                     
                         
                 case 'ASIAN'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(5786711, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(5786711, height(tt),1));
                     
                     
                 case 'AMERICAN INDIAN OR ALASKA NATIVE'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(149063, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(149063, height(tt),1));
                     
                     
                 case 'MULTI-RACE'
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(1224113, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(1224113, height(tt),1));
                     
                     
                 case upper('native hawaiian AND other pacific islander')
-                    tt.death_pctof_racepop = tt.calgov_case_count_daily./repmat(141846, height(tt),1);
+                    tt.death_pctof_racepop = 100*(tt.calgov_case_count_daily./repmat(141846, height(tt),1));
                     
       
                     
@@ -893,7 +893,7 @@ methods (Static)
 
 
 %% ANALYSIS 
-    function ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
+    function [dR_races_pankake_events,var_names] = ANZ_effect_of_npi_STA(tt_all_race, y_var_name, event_times_list, options)
     %% - - - EFFECT OF NPIs ON change in outcomes
     arguments
         tt_all_race
@@ -985,19 +985,16 @@ methods (Static)
         plot(x, y_data, 'LineStyle', ':', 'LineWidth', 5)
         
         hold on;
-        xlabel('Days before/after npi')
-        ylabel(sprintf('%s', y_var_name), 'Interpreter', 'none')
+        xlabel('Days After NPI')
+        ylabel(('Log Change in Mortality'), 'Interpreter', 'none')
     end
     
     legend([var_names_sorted], 'Interpreter', 'none')
             
-    
+%     h = get(gca, 'YLabel');
     set(gcf, 'WindowStyle', 'Docked');    
-    
-   
-    anova1(dR_races_pankake_events)
-    set(gca, 'XTickLabel',  categorical(var_names_sorted))   
     set(gcf, 'WindowStyle', 'Docked');    
+    var_names = categorical(var_names_sorted);
     
     
 end

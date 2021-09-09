@@ -31,7 +31,6 @@ close all
     event_description = event_description);
 
 
-
 %% T TESTS
 idx_asn = 1;
 idx_blk = 2;
@@ -43,8 +42,9 @@ idx_wht = 7;
 
 clc
 [P,ANOVA_cell,STATS] = anova1(dR, var_names);
-h = get(gca, 'YLabel');
-set(h, 'String', 'Log Change in Mortality');
+h = get(gca, 'YLabel')
+set(h, 'String', 'Log Change in Mortality')
+
 ANOVA_tbl = cell2dataset(ANOVA_cell);
 
 

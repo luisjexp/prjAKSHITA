@@ -92,13 +92,15 @@ We begin by testing the hypothesis that the **mean change in mortality** followi
 
 
 
-<img src="aksCOMM/file1_202197.svg" alt="image-20210829205106500" style="zoom:5-%;" />
-
-<img src="aksCOMM/file2_202197.svg" alt="image-20210829205106500" style="zoom:5-%;" />
-
-<img src="aksCOMM/file3_202197.svg" alt="image-20210829205106500" style="zoom:50%;" />
+<img src="aksCOMM/plot_impulse_response.png" alt="image-20210909155644318" style="zoom:33%;" />
 
 
+
+<img src="aksCOMM/plot_anova_box_plot.png" alt="image-20210909155912736" style="zoom: 33%;" />
+
+
+
+<img src="/Users/luis/Library/Application Support/typora-user-images/image-20210909155325573.png" alt="image-20210909155325573" style="zoom:33%;" />
 
 ## T-Tests
 
@@ -109,15 +111,7 @@ As shown in **FIGURE X**
 - we find a significant difference in the **mean change in mortality** of whites versus latinos after NPIs (t = x.xx, p = x.xx). 
 - Similarly, we find that, following an NPI, the **DV** of whites is smaller than the following ETHNIC GROUPS, whites and ETHNIC group and whites  
 
-<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
-
-<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
-
-<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
-
-<img src="aksCOMM/NEED FIGURES HERE" alt="image-20210829205106500" style="zoom:50%;" />
-
-
+![image-20210909155522337](aksCOMM/ttest_mult_comparisons.png)
 
 # Discussion
 
