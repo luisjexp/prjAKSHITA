@@ -37,21 +37,21 @@ We use a publically available dataset provided by California's Covid19 Recourse 
 
 Motivation
 
-- An ethnic groups **daily number of mortalities** depends on the size of the groups population, and is therefore an inappropriate measure to use.  
+- Daily number of mortalities for a given ethnic group will be much larger for groups with a large population, and is therefore an inappropriate measure for comparing **mortality** between different ethnic groups.
 
 Solution
 
-- To resolve this issue we divide the mortality on the *i_th* day by the group's population size in California. We refer to this outcome variable as the *death rate*.
+- To resolve this issue we divide the mortality count on the *i_th* day by the group's population size in California. We refer to this outcome variable as the **daily *mortality rate*** of an ethnic group.
 
 $$
 m_{d_i} = NumberOfMortalities/EthnicPopulation
 $$
 
-- Ethnic group's population size in the California was taken from 2019 census counts conducted by the [United States Census Bureau](https://data.census.gov). 
+- Each ethnic group's population size in the California was taken from 2019 census counts conducted by the [United States Census Bureau](https://data.census.gov). 
 
--  Death rates are then smoothed using a moving average of 7 days.
+-  **Daily mortality rates** are smoothed using a moving average of 7 days.
 
-[Figure X](this) shows each ethnicity's daily death rates from April 2020 - July 2021. 
+[Figure X](this) shows each ethnicity's **daily mortality rates** from April 2020 - July 2021. 
 
 
 
@@ -59,11 +59,9 @@ $$
 
 We also aquired the dates that non-pharemcutical interventions (NPIs) were implemented by the state of California. Specifically, we define **NPIs** as government policies that impose restictions on social and economic activity accross the state.
 
-In the analysis, we assess the impact of **7** NPIs on death rates occuring between April 2020 and July 2021. An example NPI was implemented on **DATE** where the state of california imposed a mask mandate reqiuring, by law, all of its residents to wear a mask when outdoors.
+In this analysis we assess the impact of **7** NPIs occuring between April 2020 and July 2021. An example NPI is one implemented on **DATE** where the state of California imposed a mask mandate reqiuring all of its residents to wear a mask when outdoors.
 
-Data on NPIs were manually collected from a report written by Richard Procter. The [website to the report can be found here](https://calmatters.org/health/coronavirus/2021/03/timeline-california-pandemic-year-key-points/), and a PDF of the most current report used in this analysis can be [found here](aksPAPERS/2021Procter_Timeline_ NPIs.pdf)
-
-
+Data on NPIs are manually collected from a report written by Richard Procter. The [website to the report can be found here](https://calmatters.org/health/coronavirus/2021/03/timeline-california-pandemic-year-key-points/), and a PDF of the report used used in this analysis can be [found here](aksPAPERS/2021Procter_Timeline_ NPIs.pdf).
 
 The vertical lines in **Figure ()** show the dates a short description of the NPIs that were used in this analysis. 
 
@@ -71,8 +69,12 @@ The vertical lines in **Figure ()** show the dates a short description of the NP
 
 ## Analysis 
 
-To determine the effect of non-pharemcutical interventions (NPIs) on the **daily** **death rates** of an ethinic group, we compute the **mean change mortality rate** following the onset of an NPI.  Specifically, after the onset date of an NPI we compute the change in mortality rate for each day following the NPI for up to 15 days. We then take the average of the changes in mortality rates accross the 15 days and accross all NPIs. This average change in mortality was computed seperately for each ethnic population. 
+To determine the effect of non-pharemcutical interventions (NPIs) on the **daily** **mortality rate** of an ethinic group, we compute the **average change in the mortality rate** following the onset of NPIs for each ethinic group.  Specifically, after the onset date of an NPI we assess the difference between 
 
+- the mortality rate on the day of the NPI
+- and the mortality rate for each day following the NPI for up to 15 days. 
+
+We then average the changes in mortality rates accross the 15 days and accross all NPIs. This NPI-induced **change in the mortality rate** was computed seperately for each ethnic population. 
 
 $$
 {\Delta}\bar{M}{_{ethnicity}} =  \dfrac{1}N\sum_{n=1}^{N}{  {\Delta}{m_{n}} }
@@ -88,7 +90,7 @@ The results of the analysis are summarized in figure [X].
 
 ## ANOVA
 
-We begin by testing the hypothesis that the **mean change in mortality** following an NPI is similar for all ethnic groups. Using a one way ANOVA, we reject this hypothesis  [ F(6,105) = 17.40, p = 0.00].
+We begin by testing the hypothesis that the **mean change in mortality** following an NPI is similar for all ethnic groups. Using a one way ANOVA we choose to reject this hypothesis  [ F(6,105) = 17.40, p = 0.00].
 
 
 
@@ -108,8 +110,17 @@ Second we ask if minority ethnic groups and Whites are impacted by NPIs to the s
 
 As shown in **FIGURE X**
 
-- we find a significant difference in the **mean change in mortality** of whites versus latinos after NPIs (t = x.xx, p = x.xx). 
-- Similarly, we find that, following an NPI, the **DV** of whites is smaller than the following ETHNIC GROUPS, whites and ETHNIC group and whites  
+<u>*Significant Differences</u>*
+
+- We find a significant difference in the **change in mortality** between whites and latinos after NPIs (t = x.xx, p = x.xx). 
+- Furthermore, we also find a significant difference in the **change in mortality** between whites and Pacific Islanders after NPIs (t = x.xx, p = x.xx). 
+
+
+
+<u>*NonSig Differences</u>*
+
+- In contrast, we find that, following an NPI, the change in mortality for whites is similar to that of Asians
+- Furthermore, Whites and African Americans (t = x.xx, p = x.xx),  Whites and Multi-ethnic groups (t = x.xx, p = x.xx), and Whites and Native Americans, all showed similar changes in mortality after the onset of NPIs.
 
 ![image-20210909155522337](aksCOMM/ttest_mult_comparisons.png)
 
