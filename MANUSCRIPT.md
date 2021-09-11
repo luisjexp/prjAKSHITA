@@ -1,16 +1,6 @@
 # To Do and Ideas
 
-Analysis
-
-- Write python code for akshita
-- Anova Code in Python
-- Akshita assignment: 
-   - fix plots using power point or illustrator
-   - finish writing methods and results
-   - Begin outlining and writing conclusion/discussion
-   - prepare formating for publication 
-
-# Introduction
+Introduction
 
 The problem
 
